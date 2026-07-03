@@ -26,7 +26,7 @@ namespace DataOrganiser
             
             var button1Content = new ExcludedFolderSettings();
             var button2Content = new ExtensionGroups();
-            var button3Content = new SidebarContent3();
+            var button3Content = new GeneralSettings();
 
             _sidebarItems = new List<(Border, UIElement)>
             {
@@ -35,8 +35,8 @@ namespace DataOrganiser
                 (Border3, button3Content)
             };
 
-            Border1.BorderBrush = SelectedBrush;
-            ContentArea.Content = button1Content;
+            Border3.BorderBrush = SelectedBrush;
+            ContentArea.Content = button3Content;
         }
 
         private void SidebarBorder_MouseLeftButtonUp(object sender, MouseButtonEventArgs e)

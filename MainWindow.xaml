@@ -4,6 +4,59 @@
         Title="Data Organiser" Height="850" Width="1200" WindowState="Maximized"
         Background="#191f2e">
     <Window.Resources>
+        <SolidColorBrush x:Key="ExtButtonNormalBrush" Color="#191F2E"/>
+        <SolidColorBrush x:Key="ExtButtonSelectedBrush" Color="#0C3880"/>
+        <SolidColorBrush x:Key="ExtButtonBorderBrush" Color="#0D1121"/>
+        <!--  extension styles -->
+        <Style x:Key="ExtensionButtonStyle" TargetType="ToggleButton">
+            <Setter Property="Background" Value="#2c3f66"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderBrush" Value="#191F2E"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Padding" Value="10,6"/>
+            <Setter Property="Margin" Value="3"/>
+            <Setter Property="MinHeight" Value="24"/>
+            <Setter Property="MinWidth" Value="35"/>
+            <Setter Property="Cursor" Value="Hand"/>
+
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="ToggleButton">
+                        <Border x:Name="Bd"
+                        Background="{TemplateBinding Background}"
+                        BorderBrush="{TemplateBinding BorderBrush}"
+                        BorderThickness="{TemplateBinding BorderThickness}"
+                        CornerRadius="6"
+                        Padding="{TemplateBinding Padding}">
+
+                            <ContentPresenter HorizontalAlignment="Center"
+                                      VerticalAlignment="Center"/>
+                        </Border>
+
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#124AA8"/>
+                            </Trigger>
+
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#0C3880"/>
+                            </Trigger>
+
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="Bd" Property="Opacity" Value="0.5"/>
+                                <Setter TargetName="Bd" Property="Background" Value="#0C3880"/>
+                            </Trigger>
+
+                            <Trigger Property="IsChecked" Value="True">
+                                <Setter TargetName="Bd" Property="Background" Value="#0C3880"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+
         <!-- Rounded button style for main controls -->
         <Style x:Key="RoundedButtonStyle" TargetType="Button">
             <Setter Property="Background" Value="#313c5a"/>
@@ -31,7 +84,7 @@
                     <Setter Property="Background" Value="#4d6eb2"/>
                 </Trigger>
                 <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Background" Value="#17406A"/>
+                    <Setter Property="Background" Value="#0C3880"/>
                 </Trigger>
             </Style.Triggers>
         </Style>
@@ -68,7 +121,6 @@
             </Style.Triggers>
         </Style>
 
-        <!-- Custom CheckBox style for dark theme -->
         <Style x:Key="DarkCheckBoxStyle" TargetType="CheckBox">
             <Setter Property="Foreground" Value="White"/>
             <Setter Property="Background" Value="#232325"/>
@@ -113,7 +165,6 @@
             </Setter>
         </Style>
 
-        <!-- Dark RepeatButton style for ScrollBar track (define this first) -->
         <Style x:Key="DarkScrollBarRepeatButtonStyle" TargetType="RepeatButton">
             <Setter Property="Background" Value="#232325"/>
             <Setter Property="BorderBrush" Value="#232325"/>
@@ -138,7 +189,6 @@
             </Style.Triggers>
         </Style>
 
-        <!-- Dark ScrollBar Style (define this after the RepeatButton style) -->
         <Style TargetType="ScrollBar">
             <Setter Property="Background" Value="#232325"/>
             <Setter Property="Foreground" Value="#444"/>
@@ -186,7 +236,6 @@
             </Setter>
         </Style>
 
-        <!-- TabControl and TabItem dark theme styles -->
         <Style TargetType="TabControl">
             <Setter Property="Background" Value="#2c3f66"/>
             <Setter Property="BorderBrush" Value="#191f2e"/>
@@ -308,14 +357,10 @@
     <Grid Margin="10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
-            <!-- Top controls -->
             <RowDefinition Height="400"/>
-            <!-- Extension buttons (fixed height, adjust as needed) -->
             <RowDefinition Height="*"/>
-            <!-- DataGrid fills remaining space -->
         </Grid.RowDefinitions>
 
-        <!-- Top controls -->
         <Grid Grid.Row="0">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
@@ -326,17 +371,17 @@
                 <Button Content="Scan Folder" 
                         Height="35" Width="120" 
                         Margin="0,0,10,0" 
-                        Click="ScanButton_Click" 
+                        Command="{Binding ScanButtonCommand}" 
                         Style="{StaticResource RoundedButtonStyle}"
                         ToolTip="Searches every sub-folder and file within the chosen directory and list all of those files."
                         ToolTipService.InitialShowDelay="500"
                 />
                 <Border x:Name="CurrentDirectoryBorder" Background="#191f2e" CornerRadius="6">
-                    <TextBlock x:Name="CurrentDirectoryTextBlock" 
-                               Text="Current Directory:" 
+                    <TextBlock x:Name="CurrentDirectoryTextBlock"                            
+                               Text="{Binding CurrentDirectory}"
+                               Visibility="{Binding CurrentDirectoryVisibility}" 
                                VerticalAlignment="Center" 
                                Margin="10,0,10,0" 
-                               Visibility="Hidden" 
                                FontSize="14"
                                Foreground="White"
                     />
@@ -347,7 +392,7 @@
                     Content="Refresh"
                     Height="35" Width="80"
                     Margin="0,0,50,0" 
-                    Click="RefreshButton_Click"
+                    Command="{Binding RefreshButtonClick}"
                     Grid.Column="1"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
@@ -357,7 +402,7 @@
             <Button x:Name="SettingsButton"
                     Height="35" Width="40"
                     Margin="0,0,0,0" 
-                    Click="SettingsButton_Click"
+                    Command="{Binding SettingsButtonClick}"
                     Grid.Column="1"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
@@ -370,7 +415,6 @@
             </Button>
         </Grid>
 
-        <!-- Extension search controls -->
         <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,95,0,0" VerticalAlignment="Top">
             <!--
             <TextBlock x:Name="SearchTextBlock"
@@ -386,10 +430,10 @@
             />
             -->
             <TextBox x:Name="ExtensionSearchTextBox"
+                     Text="{Binding ExtensionSearchText, UpdateSourceTrigger=PropertyChanged}"
                      Width="200"
                      Height="30"
-                     Visibility="Hidden"
-                     TextChanged="ExtensionSearchTextBox_TextChanged"
+                     Visibility="{Binding ExtensionSearchVisibility}"                  
                      Background="#232a3a"
                      BorderBrush="#232a3a"
                      Foreground="White"
@@ -404,8 +448,8 @@
             <Button Content="Clear" 
                     x:Name="ClearButton" 
                     Height="30" Width="100"
-                    Visibility="Hidden"
-                    Click="ClearButton_Click"
+                    Visibility="{Binding ClearButtonVisibility}"
+                    Command="{Binding ClearButtonClick}"
                     Margin="10,0,0,0"
                     Style="{StaticResource FlatButtonStyle}"
                     Background="#C70039"
@@ -420,12 +464,29 @@
                           Margin="3,3,0,0"
                           Background="Transparent"
             >
-                <WrapPanel x:Name="ExtensionButtonsPanel" Orientation="Horizontal" />
+                <ItemsControl ItemsSource="{Binding ExtensionButtons}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel />
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+
+                    <ItemsControl.ItemTemplate>
+                        <DataTemplate>
+                            <ToggleButton Content="{Binding Text}"
+                                    Style="{StaticResource ExtensionButtonStyle}"
+                                    Tag="{Binding Extension}"
+                                    Command="{Binding DataContext.ExtensionClickCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                                    CommandParameter="{Binding}" 
+                                    IsChecked="{Binding IsSelected}"/>
+                        </DataTemplate>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
             </ScrollViewer>
         </Border>
 
         <ScrollViewer Grid.Row="0" Margin="0,45,0,0" VerticalAlignment="Top" HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Disabled">
-            <StackPanel Orientation="Horizontal" x:Name="ExtensionGroupsPanel" Visibility="Collapsed">
+            <StackPanel Orientation="Horizontal" x:Name="ExtensionGroupsPanel" Visibility="{Binding ExtensionGroupsVisibility}">
                 <ItemsControl ItemsSource="{Binding EnabledExtensionGroups}">
                     <ItemsControl.ItemsPanel>
                         <ItemsPanelTemplate>
@@ -436,7 +497,7 @@
                         <DataTemplate>
                             <Button Content="{Binding Name}" Margin="0,0,8,0"
                             Style="{StaticResource FlatButtonStyle}"
-                            Click="ExtensionGroupButton_Click"
+                            
                             Tag="{Binding}"
                             Height="35"                            
                             Background="#2c3f66"
@@ -456,10 +517,10 @@
             VerticalAlignment="Bottom"
             Style="{StaticResource FlatButtonStyle}"
             Grid.Row="1"
-            Click="DeleteButton_Click"
+            Command="{Binding DeleteButtonClick}"
             Background="#C70039"
             BorderBrush="#B22222"
-            Visibility="Hidden"
+            Visibility="{Binding DeleteButtonVisibility}"
         />
 
         <Button x:Name="MoveButton"
@@ -470,8 +531,8 @@
             VerticalAlignment="Bottom"
             Style="{StaticResource FlatButtonStyle}"
             Grid.Row="1"
-            Click="MoveButton_Click"
-            Visibility="Hidden"
+            Command="{Binding MoveButtonClick}"
+            Visibility="{Binding MoveButtonVisibility}"
         />
 
         <Button x:Name="CopyButton"
@@ -482,8 +543,8 @@
             VerticalAlignment="Bottom"
             Style="{StaticResource FlatButtonStyle}"
             Grid.Row="1"
-            Click="CopyButton_Click"
-            Visibility="Hidden"
+            Command="{Binding CopyButtonClick}"
+            Visibility="{Binding CopyButtonVisibility}"
         />
 
         <Button x:Name="RecentDumpButton"
@@ -494,8 +555,8 @@
             VerticalAlignment="Bottom"
             Style="{StaticResource FlatButtonStyle}"
             Grid.Row="1"
-            Click="RecentDumpButton_Click"
-            Visibility="Hidden"
+            Command="{Binding RecentDumpButtonClick}"
+            Visibility="{Binding RecentDumpButtonVisibility}"
             ToolTip="Show only files created within the last 2 weeks."
         />
 
@@ -515,7 +576,7 @@
         <TextBox x:Name="FileSearchTextBox"
                  Width="200"
                  Height="30"                 
-                 TextChanged="FileSearchTextBox_TextChanged"
+                 Text="{Binding FileSearchText, UpdateSourceTrigger=PropertyChanged}"
                  Background="#232a3a"
                  BorderBrush="#232a3a"
                  Foreground="White"
@@ -524,18 +585,17 @@
                  VerticalAlignment="Bottom" 
                  Margin="0,0,0,15" 
                  Grid.Row="1"
-                 Visibility="Hidden"
+                 Visibility="{Binding FileSearchVisibility}"
                  Style="{StaticResource RoundedTextBoxWithPlaceholder}"
                  Tag="Search for file / folder:"
         />
 
-        <!-- DataGrid -->
         <TabControl Grid.Row="2" Margin="0,5,0,0" Background="#313c5a">
             <TabItem Header="Files" Width="100px" FontSize="15">
                 <DataGrid x:Name="FileDataGrid"
                           ItemsSource="{Binding FilteredFiles}"
                           AutoGenerateColumns="False"
-                          MouseDoubleClick="FileDataGrid_MouseDoubleClick"
+                          MouseDoubleClick="FileDataGridDoubleClick"
                           IsReadOnly="True"
                           VerticalAlignment="Stretch"
                           HorizontalAlignment="Stretch"
@@ -566,9 +626,9 @@
                     </DataGrid.RowHeaderStyle>
                     <DataGrid.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="Open File" Click="OpenFileMenuItem_Click"/>
-                            <MenuItem Header="Open File Location" Click="OpenFileLocationMenuItem_Click"/>
-                            <MenuItem Header="Scan File Directory" Click="ScanFileDirectoryMenuItem_Click"/>
+                            <MenuItem Header="Open File" Command="{Binding OpenFileClick}"/>
+                            <MenuItem Header="Open File Location" Command="{Binding OpenFileLocationClick}"/>
+                            <MenuItem Header="Scan File Directory" Command="{Binding ScanFileDirectoryClick}"/>
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                     <DataGrid.Columns>
@@ -602,7 +662,7 @@
                           AlternatingRowBackground="#0d1121"
                           Foreground="White"
                           FontSize="12">
-                    <!-- Define columns for folders as needed -->
+                  
                     <DataGrid.Resources>
                         <Style TargetType="DataGridColumnHeader">
                             <Setter Property="Foreground" Value="White"/>
@@ -619,8 +679,8 @@
                     </DataGrid.RowHeaderStyle>
                     <DataGrid.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="Open Folder Location" Click="OpenFolderLocationMenuItem_Click"/>
-                            <MenuItem Header="Scan Folder Directory" Click="ScanFolderDirectoryMenuItem_Click"/>
+                            <MenuItem Header="Open Folder Location" Command="{Binding OpenFolderLocationClick}"/>
+                            <MenuItem Header="Scan Folder Directory" Command="{Binding ScanFolderDirectoryClick}"/>
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                     <DataGrid.Columns>
@@ -643,7 +703,7 @@
 
         <Border x:Name="LoadingOverlay"
                 Background="#2c3f66"
-                Visibility="Collapsed"
+                Visibility="{Binding LoadingOverlayVisibility}"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Panel.ZIndex="100"

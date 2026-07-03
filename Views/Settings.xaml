@@ -54,6 +54,25 @@
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0" Background="#0d1121">
+            <Border x:Name="Border3" Style="{StaticResource SidebarBorder}" BorderBrush="Transparent" Background="Transparent" MouseLeftButtonUp="SidebarBorder_MouseLeftButtonUp">
+                <StackPanel Orientation="Horizontal">
+                    <Button x:Name="General"
+                Content=""
+                Height="35" Width="35"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Center"
+                Margin="5,0,0,0"
+                IsHitTestVisible="False"
+                Style="{StaticResource RoundedButtonStyle}"
+        />
+                    <TextBlock Text="General"
+                    Foreground="White"
+                    VerticalAlignment="Center"
+                    Margin="5,0,0,0"
+                    FontSize="14"
+        />
+                </StackPanel>
+            </Border>
             <Border x:Name="Border1" Style="{StaticResource SidebarBorder}" BorderBrush="Transparent" Background="Transparent" MouseLeftButtonUp="SidebarBorder_MouseLeftButtonUp">
                 <StackPanel Orientation="Horizontal">
                     <Button x:Name="ExcludedFolders"
@@ -85,25 +104,6 @@
                             Style="{StaticResource RoundedButtonStyle}"
                     />
                     <TextBlock Text="Extension Groups"
-                                Foreground="White"
-                                VerticalAlignment="Center"
-                                Margin="5,0,0,0"
-                                FontSize="14"
-                    />
-                </StackPanel>
-            </Border>
-            <Border x:Name="Border3" Style="{StaticResource SidebarBorder}" BorderBrush="Transparent" Background="Transparent" MouseLeftButtonUp="SidebarBorder_MouseLeftButtonUp">
-                <StackPanel Orientation="Horizontal">
-                    <Button x:Name="Button3"
-                            Content="3"
-                            Height="35" Width="35"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            Margin="5,0,0,0"
-                            IsHitTestVisible="False"
-                            Style="{StaticResource RoundedButtonStyle}"
-                    />
-                    <TextBlock Text="Button 3"
                                 Foreground="White"
                                 VerticalAlignment="Center"
                                 Margin="5,0,0,0"

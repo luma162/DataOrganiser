@@ -2,50 +2,21 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
-namespace DataOrganiser
+namespace DataOrganiser.Services
 {
-    
-    public class FileSystemIndexer
+    public class Indexer
     {
-        //private readonly string[] _excludedFolders;
-
-        //ExcludedFoldersManager _excludedFoldersManager = new ExcludedFoldersManager();
-        //private IEnumerable<object> _excludedFolders;
-
-        private List<String> _excludedFolders;
-
-        //private List<string> _excludedFolders;
-
-        //public FileSystemIndexer(string[] excludedFolders)
-        //{
-        //    //_excludedFolders = excludedFolders ?? Array.Empty<string>();
-        //List<string> _excludedFolders = _excludedFoldersManager.ExcludedFolders;
-
-        //}
-
-        public FileSystemIndexer(List<string> excludedFolders)
+        private readonly ExcludedFoldersManager ef;
+        public Indexer(ExcludedFoldersManager excludedFolders)
         {
-            _excludedFolders = excludedFolders ?? new List<string>();
+            ef = excludedFolders;
         }
 
-        public bool IsExcludedFolder(string path)
-        {
-            foreach (var folder in _excludedFolders)
-            {
-                if (path.IndexOf(folder, StringComparison.OrdinalIgnoreCase) >= 0)
-                    return true;
-            }
-            return false;
-        }
-
-        public bool IsReparsePoint(string path)
-        {
-            var attr = File.GetAttributes(path);
-            return (attr & FileAttributes.ReparsePoint) == FileAttributes.ReparsePoint;
-        }
-
-        public void ScanDirectoryParallel(
+        public void IndexDirectory(
             string rootPath,
             ConcurrentBag<IndexedFile> filesBag,
             ConcurrentBag<IndexedFolder> foldersBag)
@@ -73,7 +44,7 @@ namespace DataOrganiser
                         if (IsReparsePoint(dir))
                             return;
 
-                        ScanDirectoryParallel(dir, filesBag, foldersBag);
+                        IndexDirectory(dir, filesBag, foldersBag);
                     }
                     catch (UnauthorizedAccessException)
                     {
@@ -103,6 +74,22 @@ namespace DataOrganiser
             {
                 // skip rootPath
             }
+        }
+
+        public bool IsExcludedFolder(string path)
+        {
+            foreach (var folder in ef.ExcludedFolders)
+            {
+                if (path.IndexOf(folder, StringComparison.OrdinalIgnoreCase) >= 0)
+                    return true;
+            }
+            return false;
+        }
+
+        public bool IsReparsePoint(string path)
+        {
+            var attr = File.GetAttributes(path);
+            return (attr & FileAttributes.ReparsePoint) == FileAttributes.ReparsePoint;
         }
     }
 }

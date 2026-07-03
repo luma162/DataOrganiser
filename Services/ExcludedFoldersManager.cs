@@ -6,9 +6,9 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 
-namespace DataOrganiser
+namespace DataOrganiser.Services
 {
-    internal class ExcludedFoldersManager
+    public class ExcludedFoldersManager
     {
         private readonly string appDataPath;
         private readonly string filePath;
@@ -38,7 +38,6 @@ namespace DataOrganiser
             }
             catch (Exception ex)
             {
-                // You can log this or notify the user
                 Console.WriteLine($"Error loading settings: {ex.Message}");
                 ExcludedFolders = new List<string>();
             }

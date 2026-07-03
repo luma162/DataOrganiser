@@ -4,19 +4,19 @@
     <_LastSelectedProfileId>C:\Users\lukem\Desktop\Master Folder\DataOrganiser\Properties\PublishProfiles\FolderProfile.pubxml</_LastSelectedProfileId>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Update="EditExtensionGroups.xaml.cs">
+    <Compile Update="Views\EditExtensionGroups.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="Settings.xaml.cs">
+    <Compile Update="Views\Settings.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="ExcludedFolderSettings.xaml.cs">
+    <Compile Update="Views\ExcludedFolderSettings.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="ExtensionGroups.xaml.cs">
+    <Compile Update="Views\ExtensionGroups.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Update="SidebarContent3.xaml.cs">
+    <Compile Update="Views\GeneralSettings.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
