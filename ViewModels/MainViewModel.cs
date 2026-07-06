@@ -27,6 +27,7 @@ public partial class MainViewModel : ObservableObject
 
     public ListCollectionView FilteredFiles { get; }
     public ListCollectionView FilteredFolders { get; }
+    public ListCollectionView FilteredExtensionButtons { get; }
 
     [ObservableProperty] private string? currentDirectory;
     [ObservableProperty] private Visibility currentDirectoryVisibility;
@@ -57,9 +58,13 @@ public partial class MainViewModel : ObservableObject
 
         FilteredFiles = new ListCollectionView(IndexedFiles);
         FilteredFolders = new ListCollectionView(IndexedFolders);
+        FilteredExtensionButtons = new ListCollectionView(ExtensionButtons);
+
+
 
         FilteredFiles.Filter = FilterFiles;
         FilteredFolders.Filter = FilterFolders;
+        FilteredExtensionButtons.Filter = FilterExtensionButtons;
         _fileOperationsService = fileOperationsService;
     }
 
@@ -147,7 +152,18 @@ public partial class MainViewModel : ObservableObject
         FilteredFiles.Refresh();
         FilteredFolders.Refresh();
     }
-    
+
+    private bool FilterExtensionButtons(object obj)
+    {
+        if (obj is not ExtensionButtonModel extensionButton)
+            return false;
+
+        if (string.IsNullOrWhiteSpace(ExtensionSearchText))
+            return true;
+
+        return extensionButton.Text.Contains(ExtensionSearchText, StringComparison.OrdinalIgnoreCase);
+    }
+
     private bool FilterFiles(object obj)
     {
         if (obj is not IndexedFile file)
@@ -378,7 +394,10 @@ public partial class MainViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void ClearButtonClick() { }
+    private void ClearButtonClick()
+    {
+        ExtensionSearchText = "";
+    }
 
     [RelayCommand]
     private void ScanFileDirectoryClick() { }
@@ -401,6 +420,7 @@ public partial class MainViewModel : ObservableObject
 
     partial void OnExtensionSearchTextChanged(string? value)
     {
+        FilteredExtensionButtons.Refresh();
     }
 
     partial void OnFileSearchTextChanged(string? value)
