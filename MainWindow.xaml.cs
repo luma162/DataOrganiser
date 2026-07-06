@@ -7,6 +7,7 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.Diagnostics.Tracing;
+using System.Drawing.Printing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -31,6 +32,13 @@ public partial class MainWindow : Window
     private void FileDataGridDoubleClick(object sender, System.Windows.Input.MouseButtonEventArgs e)
     {
         
+    }
+
+    private void SettingsButton_Click(object sender, RoutedEventArgs e)
+    {
+        Settings settingsWindow = new Settings();
+
+        settingsWindow.Show();
     }
 
 

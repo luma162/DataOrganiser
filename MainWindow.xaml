@@ -402,7 +402,7 @@
             <Button x:Name="SettingsButton"
                     Height="35" Width="40"
                     Margin="0,0,0,0" 
-                    Command="{Binding SettingsButtonClick}"
+                    Click="SettingsButton_Click"
                     Grid.Column="1"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"
@@ -517,7 +517,7 @@
             VerticalAlignment="Bottom"
             Style="{StaticResource FlatButtonStyle}"
             Grid.Row="1"
-            Command="{Binding DeleteButtonClick}"
+            Command="{Binding DeleteButtonClickCommand}"
             Background="#C70039"
             BorderBrush="#B22222"
             Visibility="{Binding DeleteButtonVisibility}"
@@ -531,7 +531,7 @@
             VerticalAlignment="Bottom"
             Style="{StaticResource FlatButtonStyle}"
             Grid.Row="1"
-            Command="{Binding MoveButtonClick}"
+            Command="{Binding MoveButtonClickCommand}"
             Visibility="{Binding MoveButtonVisibility}"
         />
 
@@ -543,7 +543,7 @@
             VerticalAlignment="Bottom"
             Style="{StaticResource FlatButtonStyle}"
             Grid.Row="1"
-            Command="{Binding CopyButtonClick}"
+            Command="{Binding CopyButtonClickCommand}"
             Visibility="{Binding CopyButtonVisibility}"
         />
 
@@ -555,7 +555,7 @@
             VerticalAlignment="Bottom"
             Style="{StaticResource FlatButtonStyle}"
             Grid.Row="1"
-            Command="{Binding RecentDumpButtonClick}"
+            Command="{Binding RecentDumpButtonClickCommand}"
             Visibility="{Binding RecentDumpButtonVisibility}"
             ToolTip="Show only files created within the last 2 weeks."
         />

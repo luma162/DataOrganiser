@@ -1,73 +1,77 @@
 {
   "Version": 1,
-  "WorkspaceRootPath": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\",
+  "WorkspaceRootPath": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser mvvm\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser mvvm\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser\\viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|solutionrelative:viewmodels\\mainviewmodel.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser mvvm\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser\\models\\bulkobservablecollection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|solutionrelative:models\\bulkobservablecollection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser mvvm\\views\\extensiongroups.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|solutionrelative:views\\extensiongroups.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser mvvm\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|solutionrelative:app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser mvvm\\services\\indexer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser\\services\\indexer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|solutionrelative:services\\indexer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser mvvm\\filesystemindexer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|solutionrelative:filesystemindexer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser mvvm\\services\\filesystemscanner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|solutionrelative:services\\filesystemscanner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser mvvm\\models\\indexedfile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|solutionrelative:models\\indexedfile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser mvvm\\services\\dialogueservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|solutionrelative:services\\dialogueservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser mvvm\\services\\excludedfoldersmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser\\services\\excludedfoldersmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|solutionrelative:services\\excludedfoldersmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser mvvm\\views\\generalsettings.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser\\services\\dialogueservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|solutionrelative:services\\dialogueservice.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser\\mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|solutionrelative:mainwindow.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser\\models\\indexedfile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|solutionrelative:models\\indexedfile.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser\\app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|solutionrelative:app.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser\\views\\extensiongroups.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "RelativeMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|solutionrelative:views\\extensiongroups.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser\\filesystemindexer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|solutionrelative:filesystemindexer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser\\services\\filesystemscanner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|solutionrelative:services\\filesystemscanner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser\\views\\generalsettings.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|solutionrelative:views\\generalsettings.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser mvvm\\views\\generalsettings.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser\\views\\generalsettings.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|solutionrelative:views\\generalsettings.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser mvvm\\extensiongroupmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser\\extensiongroupmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|solutionrelative:extensiongroupmanager.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser mvvm\\views\\extensiongroups.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser\\views\\extensiongroups.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|solutionrelative:views\\extensiongroups.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser mvvm\\views\\settings.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
+      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser\\views\\settings.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|solutionrelative:views\\settings.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser mvvm\\views\\settings.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|c:\\users\\lukem\\desktop\\master folder\\dataorganiser\\views\\settings.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{35A813DC-F0B2-EC07-93DA-F3B210863249}|DataOrganiser.csproj|solutionrelative:views\\settings.xaml.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -78,92 +82,91 @@
       "DocumentGroups": [
         {
           "DockedWidth": 255,
-          "SelectedChildIndex": 8,
+          "SelectedChildIndex": 7,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\MainWindow.xaml.cs",
-              "RelativeToolTip": "MainWindow.xaml.cs",
-              "ViewState": "AgIAABAAAAAAAAAAAAAIwBoAAAAIAAAAAAAAAA==",
+              "DocumentIndex": 1,
+              "Title": "BulkObservableCollection.cs",
+              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\Models\\BulkObservableCollection.cs",
+              "RelativeDocumentMoniker": "Models\\BulkObservableCollection.cs",
+              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\Models\\BulkObservableCollection.cs*",
+              "RelativeToolTip": "Models\\BulkObservableCollection.cs*",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-03T21:30:17.354Z",
+              "WhenOpened": "2026-07-06T04:22:44.468Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 7,
               "Title": "IndexedFile.cs",
-              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\Models\\IndexedFile.cs",
+              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\Models\\IndexedFile.cs",
               "RelativeDocumentMoniker": "Models\\IndexedFile.cs",
-              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\Models\\IndexedFile.cs",
+              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\Models\\IndexedFile.cs",
               "RelativeToolTip": "Models\\IndexedFile.cs",
-              "ViewState": "AgIAABMAAAAAAAAAAAAwwCcAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAA0wCcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-03T17:36:15.432Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "Indexer.cs",
-              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\Services\\Indexer.cs",
+              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\Services\\Indexer.cs",
               "RelativeDocumentMoniker": "Services\\Indexer.cs",
-              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\Services\\Indexer.cs",
+              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\Services\\Indexer.cs",
               "RelativeToolTip": "Services\\Indexer.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAACYAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAiwCcAAAA7AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-03T11:00:55.727Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 10,
               "Title": "FileSystemIndexer.cs",
-              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\FileSystemIndexer.cs",
+              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\FileSystemIndexer.cs",
               "RelativeDocumentMoniker": "FileSystemIndexer.cs",
-              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\FileSystemIndexer.cs",
+              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\FileSystemIndexer.cs",
               "RelativeToolTip": "FileSystemIndexer.cs",
               "ViewState": "AgIAAFAAAAAAAAAAAAAUwGEAAAA1AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-03T10:25:07.689Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-07-03T10:25:07.689Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 11,
               "Title": "FileSystemScanner.cs",
-              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\Services\\FileSystemScanner.cs",
+              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\Services\\FileSystemScanner.cs",
               "RelativeDocumentMoniker": "Services\\FileSystemScanner.cs",
-              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\Services\\FileSystemScanner.cs",
+              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\Services\\FileSystemScanner.cs",
               "RelativeToolTip": "Services\\FileSystemScanner.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-03T09:23:33.411Z",
+              "WhenOpened": "2026-07-03T09:23:33.411Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "DialogueService.cs",
+              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\Services\\DialogueService.cs",
+              "RelativeDocumentMoniker": "Services\\DialogueService.cs",
+              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\Services\\DialogueService.cs",
+              "RelativeToolTip": "Services\\DialogueService.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-03T09:08:18.045Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "DialogueService.cs",
-              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\Services\\DialogueService.cs",
-              "RelativeDocumentMoniker": "Services\\DialogueService.cs",
-              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\Services\\DialogueService.cs",
-              "RelativeToolTip": "Services\\DialogueService.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-03T09:08:18.045Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "App.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\App.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\App.xaml.cs",
               "RelativeDocumentMoniker": "App.xaml.cs",
-              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\App.xaml.cs",
+              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\App.xaml.cs",
               "RelativeToolTip": "App.xaml.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAcwBYAAAA3AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -172,36 +175,62 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "MainViewModel.cs",
-              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\ViewModels\\MainViewModel.cs",
+              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\ViewModels\\MainViewModel.cs",
               "RelativeDocumentMoniker": "ViewModels\\MainViewModel.cs",
-              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\ViewModels\\MainViewModel.cs",
-              "RelativeToolTip": "ViewModels\\MainViewModel.cs",
-              "ViewState": "AgIAADAAAAAAAAAAAADgvzoAAAAYAAAAAAAAAA==",
+              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\ViewModels\\MainViewModel.cs*",
+              "RelativeToolTip": "ViewModels\\MainViewModel.cs*",
+              "ViewState": "AgIAAFAAAAAAAAAAAAAowHAAAAAFAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-03T09:03:18.952Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 2,
               "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\MainWindow.xaml",
+              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\MainWindow.xaml",
               "RelativeDocumentMoniker": "MainWindow.xaml",
-              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\MainWindow.xaml",
+              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\MainWindow.xaml",
               "RelativeToolTip": "MainWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2026-07-03T02:53:32.773Z",
+              "WhenOpened": "2026-07-05T01:55:44.824Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
+              "Title": "ExcludedFoldersManager.cs",
+              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\Services\\ExcludedFoldersManager.cs",
+              "RelativeDocumentMoniker": "Services\\ExcludedFoldersManager.cs",
+              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\Services\\ExcludedFoldersManager.cs",
+              "RelativeToolTip": "Services\\ExcludedFoldersManager.cs",
+              "ViewState": "AgIAABIAAAAAAAAAAAAowA8AAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-02T23:57:47.246Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "MainWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\MainWindow.xaml.cs",
+              "RelativeDocumentMoniker": "MainWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\MainWindow.xaml.cs",
+              "RelativeToolTip": "MainWindow.xaml.cs",
+              "ViewState": "AgIAABAAAAAAAAAAAAAAACcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-03T21:30:17.354Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
               "Title": "ExtensionGroups.xaml",
-              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\Views\\ExtensionGroups.xaml",
+              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\Views\\ExtensionGroups.xaml",
               "RelativeDocumentMoniker": "Views\\ExtensionGroups.xaml",
-              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\Views\\ExtensionGroups.xaml",
+              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\Views\\ExtensionGroups.xaml",
               "RelativeToolTip": "Views\\ExtensionGroups.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2026-07-02T23:51:27.392Z",
@@ -209,23 +238,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "ExcludedFoldersManager.cs",
-              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\Services\\ExcludedFoldersManager.cs",
-              "RelativeDocumentMoniker": "Services\\ExcludedFoldersManager.cs",
-              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\Services\\ExcludedFoldersManager.cs",
-              "RelativeToolTip": "Services\\ExcludedFoldersManager.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAArAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-02T23:57:47.246Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
+              "DocumentIndex": 14,
               "Title": "ExtensionGroupManager.cs",
-              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\ExtensionGroupManager.cs",
+              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\ExtensionGroupManager.cs",
               "RelativeDocumentMoniker": "ExtensionGroupManager.cs",
-              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\ExtensionGroupManager.cs",
+              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\ExtensionGroupManager.cs",
               "RelativeToolTip": "ExtensionGroupManager.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAB8AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -233,11 +250,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 12,
+              "DocumentIndex": 13,
               "Title": "GeneralSettings.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\Views\\GeneralSettings.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\Views\\GeneralSettings.xaml.cs",
               "RelativeDocumentMoniker": "Views\\GeneralSettings.xaml.cs",
-              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\Views\\GeneralSettings.xaml.cs",
+              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\Views\\GeneralSettings.xaml.cs",
               "RelativeToolTip": "Views\\GeneralSettings.xaml.cs",
               "ViewState": "AgIAABIAAAAAAAAAAAAowCQAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -245,11 +262,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
+              "DocumentIndex": 16,
               "Title": "Settings.xaml",
-              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\Views\\Settings.xaml",
+              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\Views\\Settings.xaml",
               "RelativeDocumentMoniker": "Views\\Settings.xaml",
-              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\Views\\Settings.xaml",
+              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\Views\\Settings.xaml",
               "RelativeToolTip": "Views\\Settings.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2026-07-02T23:51:27.397Z",
@@ -257,11 +274,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 12,
               "Title": "GeneralSettings.xaml",
-              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\Views\\GeneralSettings.xaml",
+              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\Views\\GeneralSettings.xaml",
               "RelativeDocumentMoniker": "Views\\GeneralSettings.xaml",
-              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\Views\\GeneralSettings.xaml",
+              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\Views\\GeneralSettings.xaml",
               "RelativeToolTip": "Views\\GeneralSettings.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
               "WhenOpened": "2026-07-03T00:05:15.864Z",
@@ -269,11 +286,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 14,
+              "DocumentIndex": 15,
               "Title": "ExtensionGroups.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\Views\\ExtensionGroups.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\Views\\ExtensionGroups.xaml.cs",
               "RelativeDocumentMoniker": "Views\\ExtensionGroups.xaml.cs",
-              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\Views\\ExtensionGroups.xaml.cs",
+              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\Views\\ExtensionGroups.xaml.cs",
               "RelativeToolTip": "Views\\ExtensionGroups.xaml.cs",
               "ViewState": "AgIAAA8AAAAAAAAAAAAAABcAAAAiAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
@@ -281,11 +298,11 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 16,
+              "DocumentIndex": 17,
               "Title": "Settings.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\Views\\Settings.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\Views\\Settings.xaml.cs",
               "RelativeDocumentMoniker": "Views\\Settings.xaml.cs",
-              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser MVVM\\Views\\Settings.xaml.cs",
+              "ToolTip": "C:\\Users\\lukem\\Desktop\\Master Folder\\DataOrganiser\\Views\\Settings.xaml.cs",
               "RelativeToolTip": "Views\\Settings.xaml.cs",
               "ViewState": "AgIAAAwAAAAAAAAAAIBJwCYAAAApAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",

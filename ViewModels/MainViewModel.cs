@@ -4,8 +4,10 @@ using DataOrganiser.Models;
 using DataOrganiser.Services;
 using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
+using System.IO;
 using System.Windows;
 using System.Windows.Data;
+using System.Windows.Forms;
 using System.Windows.Media;
 using System.Windows.Threading;
 
@@ -13,74 +15,37 @@ namespace DataOrganiser.ViewModels;
 
 public partial class MainViewModel : ObservableObject
 {
-    //private readonly FileSystemScanner _scanner;
-    //private readonly DialogueService _dialogueService;
     private readonly ExcludedFoldersManager _excludedFoldersManager;
     private Indexer _indexer;
 
-    public ObservableCollection<IndexedFile> IndexedFiles { get; } = new();
-    public ObservableCollection<IndexedFolder> IndexedFolders { get; } = new();
+    public BulkObservableCollection<IndexedFile> IndexedFiles { get; } = new();
+    public BulkObservableCollection<IndexedFolder> IndexedFolders { get; } = new();
+
     public ObservableCollection<ExtensionButtonModel> ExtensionButtons { get; } = new();
 
     public ListCollectionView FilteredFiles { get; }
     public ListCollectionView FilteredFolders { get; }
 
+    [ObservableProperty] private string? currentDirectory;
+    [ObservableProperty] private Visibility currentDirectoryVisibility;
+    [ObservableProperty] private Visibility loadingOverlayVisibility = Visibility.Collapsed;
+    [ObservableProperty] private Visibility searchBarVisibility = Visibility.Collapsed;
+    [ObservableProperty] private Visibility extensionSearchVisibility = Visibility.Collapsed;
+    [ObservableProperty] private Visibility clearButtonVisibility = Visibility.Collapsed;
+    [ObservableProperty] private Visibility fileSearchVisibility = Visibility.Collapsed;
+    [ObservableProperty] private Visibility deleteButtonVisibility = Visibility.Collapsed;
+    [ObservableProperty] private Visibility moveButtonVisibility = Visibility.Collapsed;
+    [ObservableProperty] private Visibility copyButtonVisibility = Visibility.Collapsed;
+    [ObservableProperty] private Visibility recentDumpButtonVisibility = Visibility.Collapsed;
+    [ObservableProperty] private Visibility extensionGroupsVisibility = Visibility.Collapsed;
 
-
-
-    //scan related observations
-    [ObservableProperty]
-    private string? currentDirectory;
-    [ObservableProperty]
-    private Visibility currentDirectoryVisibility;
-    [ObservableProperty]
-    private Visibility loadingOverlayVisibility = Visibility.Collapsed;
-    [ObservableProperty]
-    private Visibility searchBarVisibility = Visibility.Collapsed;
-    [ObservableProperty]
-    private Visibility extensionSearchVisibility = Visibility.Collapsed;
-    [ObservableProperty]
-    private Visibility clearButtonVisibility = Visibility.Collapsed;
-    [ObservableProperty]
-    private Visibility fileSearchVisibility = Visibility.Collapsed;
-    [ObservableProperty]
-    private Visibility deleteButtonVisibility = Visibility.Collapsed;
-    [ObservableProperty]
-    private Visibility moveButtonVisibility = Visibility.Collapsed;
-    [ObservableProperty]
-    private Visibility copyButtonVisibility = Visibility.Collapsed;
-    [ObservableProperty]
-    private Visibility recentDumpButtonVisibility = Visibility.Collapsed;
-    [ObservableProperty]
-    private Visibility extensionGroupsVisibility = Visibility.Collapsed;
-
-    [ObservableProperty]
-    private string? extensionSearchText;
-    [ObservableProperty]
-    private string? fileSearchText;
-
-
-    //private static readonly System.Windows.Media.Brush BackgroundBrush = new SolidColorBrush(System.Windows.Media.Color.FromRgb(12, 56, 128));
-    //private static readonly System.Windows.Media.Brush BorderBrush = new SolidColorBrush(System.Windows.Media.Color.FromRgb(25, 31, 46));
+    [ObservableProperty] private string? extensionSearchText;
+    [ObservableProperty] private string? fileSearchText;
 
     private string? _scannedDir;
+    private ExtensionButtonModel? _allButton;
 
-    //public MainViewModel(Indexer indexer)
-    //{
-    //    _indexer = indexer;
-    //    FilteredFiles = new ListCollectionView(IndexedFiles);
-    //    FilteredFolders = new ListCollectionView(IndexedFolders);
-
-    //    //FilteredFiles = new ListCollectionView(IndexedFiles);
-    //    //OnPropertyChanged(nameof(FilteredFiles));
-    //    //FilteredFiles.Refresh();
-
-    //    //FilteredFolders = new ListCollectionView(IndexedFolders);
-    //    //OnPropertyChanged(nameof(FilteredFolders));
-    //    //FilteredFolders.Refresh();
-    //}
-
-    // #0C3880 selected extension colour
+    private const string AllExtensionKey = "__ALL__"; 
 
     public MainViewModel(Indexer indexer)
     {
@@ -88,6 +53,9 @@ public partial class MainViewModel : ObservableObject
 
         FilteredFiles = new ListCollectionView(IndexedFiles);
         FilteredFolders = new ListCollectionView(IndexedFolders);
+
+        FilteredFiles.Filter = FilterFiles;
+        FilteredFolders.Filter = FilterFolders;
     }
 
     [RelayCommand]
@@ -118,15 +86,10 @@ public partial class MainViewModel : ObservableObject
             });
 
             IndexedFiles.Clear();
-            foreach (var f in filesBag)
-                IndexedFiles.Add(f);
+            IndexedFiles.AddRange(filesBag);
 
             IndexedFolders.Clear();
-            foreach (var f in foldersBag)
-                IndexedFolders.Add(f);
-
-            FilteredFiles.Refresh();
-            FilteredFolders.Refresh();
+            IndexedFolders.AddRange(foldersBag);
 
             PopulateExtensionButtons();
 
@@ -144,21 +107,20 @@ public partial class MainViewModel : ObservableObject
         {
             LoadingOverlayVisibility = Visibility.Collapsed;
         }
-
-        Console.WriteLine($"Files: {IndexedFiles.Count}");
-        Console.WriteLine($"Folders: {IndexedFolders.Count}");
     }
 
     private void PopulateExtensionButtons()
     {
         ExtensionButtons.Clear();
 
-        ExtensionButtons.Add(new ExtensionButtonModel
+        _allButton = new ExtensionButtonModel
         {
-            Extension = "__ALL__",
+            Extension = AllExtensionKey,
             Text = "All",
             IsSelected = true
-        });
+        };
+
+        ExtensionButtons.Add(_allButton);
 
         var extensions = IndexedFiles
             .Select(f => f.Extension?.ToLower())
@@ -175,123 +137,302 @@ public partial class MainViewModel : ObservableObject
         }
     }
 
+    private void UpdateDataGrid()
+    {
+        FilteredFiles.Refresh();
+        FilteredFolders.Refresh();
+    }
+    
+    private bool FilterFiles(object obj)
+    {
+        if (obj is not IndexedFile file)
+            return false;
+
+
+        bool matchesExtension;
+
+        if (_allButton == null)
+        {
+            matchesExtension = true;
+        }
+        else if (_allButton.IsSelected)
+        {
+            matchesExtension = true;
+        }
+        else
+        {
+            bool foundMatchingSelectedExtension = false;
+
+            foreach (var extensionButton in ExtensionButtons)
+            {
+                bool buttonIsSelected = extensionButton.IsSelected;
+
+                string? fileExtensionLower = null;
+                if (file.Extension != null)
+                {
+                    fileExtensionLower = file.Extension.ToLower();
+                }
+
+                bool extensionsMatch = (extensionButton.Extension == fileExtensionLower);
+
+                if (buttonIsSelected && extensionsMatch)
+                {
+                    foundMatchingSelectedExtension = true;
+                    break;
+                }
+            }
+            matchesExtension = foundMatchingSelectedExtension;
+        }
+
+
+        bool matchesSearch;
+        bool searchBoxIsEmpty = string.IsNullOrWhiteSpace(FileSearchText);
+        
+        if (searchBoxIsEmpty)
+        {
+            matchesSearch = true;
+        }
+        else
+        {
+            bool nameContainsSearchText;
+
+            if (file.Name == null)
+            {
+                nameContainsSearchText = false;
+            }
+            else
+            {
+                nameContainsSearchText = file.Name.Contains(FileSearchText, StringComparison.OrdinalIgnoreCase);
+            }
+
+            matchesSearch = nameContainsSearchText;
+        }
+
+        return matchesExtension && matchesSearch;
+    }
+
+    private bool FilterFolders(object obj)
+    {
+        if (obj is not IndexedFolder folder)
+            return false;
+
+        bool matchesSearch = string.IsNullOrWhiteSpace(FileSearchText)
+            || (folder.Name?.Contains(FileSearchText, StringComparison.OrdinalIgnoreCase) ?? false);
+
+        return matchesSearch;
+    }
+
     [RelayCommand]
     private void ExtensionClick(ExtensionButtonModel item)
     {
-        if (item.Extension == "__ALL__")
+        if (item.Extension == AllExtensionKey)
         {
             foreach (var e in ExtensionButtons)
-                e.IsSelected = false;
+                e.IsSelected = e == item;
 
-            item.IsSelected = true;
+            UpdateDataGrid();
             return;
         }
 
-        var allButton = ExtensionButtons.FirstOrDefault(e => e.Extension == "__ALL__");
-        if (allButton is not null) allButton.IsSelected = false;
+        if (item.IsSelected)
+        {
+            if (_allButton is not null)
+                _allButton.IsSelected = false;
+        }
+        else
+        {
+            bool anySelected = ExtensionButtons
+                .Any(e => e.Extension != AllExtensionKey && e.IsSelected);
 
-        item.IsSelected = !item.IsSelected;
+            if (!anySelected && _allButton is not null)
+                _allButton.IsSelected = true;
+        }
 
-        bool anyExtensionSelected = ExtensionButtons.Any(e => e.Extension != "__ALL__" && e.IsSelected);
-        if (!anyExtensionSelected && allButton is not null)
-            allButton.IsSelected = true;
+        UpdateDataGrid();
     }
 
-    //private void UpdateEnabledGroups()
-    //{
-    //    var enabled = ExtensionGroupManager.Groups.Where(g => g.IsEnabled).ToList();
-    //    EnabledExtensionGroups.Clear();
-    //    foreach (var group in enabled)
-    //        EnabledExtensionGroups.Add(group);
-    //    OnPropertyChanged(nameof(EnabledExtensionGroups));
-    //}
 
     [RelayCommand]
-    private void SettingsButtonClick()
-    {
+    private void RefreshButtonClick() { }
 
+    private List<IndexedFile> GetSelectedFiles()
+    {
+        return IndexedFiles.Where(f => f.IsSelected).ToList();
     }
 
-    [RelayCommand]
-    private void RefreshButtonClick()
+    private List<IndexedFolder> GetSelectedFolders()
     {
-        
-    }
-
-    [RelayCommand]
-    private void CopyButtonClick()
-    {
-
+        return IndexedFolders.Where(f => f.IsSelected).ToList();
     }
 
     [RelayCommand]
-    private void MoveButtonClick()
+    private void CopyButtonClick() 
     {
+        List<IndexedFile> selectedFiles = GetSelectedFiles();
+        List<IndexedFolder> selectedFolders = GetSelectedFolders();
 
+        var dialog = new System.Windows.Forms.FolderBrowserDialog();
+        if (dialog.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+            return;
+
+        string targetPath = dialog.SelectedPath;
+
+        foreach (var file in selectedFiles)
+        {
+            try
+            {
+                string destPath = Path.Combine(targetPath, file.Name);
+                string fileNameWithoutExt = Path.GetFileNameWithoutExtension(file.Name);
+                string ext = Path.GetExtension(file.Name);
+                int count = 1;
+
+                while (File.Exists(destPath))
+                {
+                    destPath = Path.Combine(targetPath, $"{fileNameWithoutExt} ({count}){ext}");
+                    count++;
+                }
+
+                File.Copy(file.FullPath, destPath);
+                file.IsSelected = false;
+            }
+            catch (Exception ex)
+            { System.Windows.MessageBox.Show($"Failed to copy folder: {file.Name}\n{ex.Message}"); }
+        }
+
+        foreach (var folder in selectedFolders)
+        {
+            try
+            {
+                string destPath = Path.Combine(targetPath, folder.Name);
+                int count = 1;
+                while (Directory.Exists(destPath))
+                {
+                    destPath = Path.Combine(targetPath, $"{folder.Name} ({count})");
+                    count++;
+                }
+                CopyDirectory(folder.FullPath, destPath);
+                folder.IsSelected = false;
+            }
+            catch (Exception ex)
+            { System.Windows.MessageBox.Show($"Failed to copy folder: {folder.Name}\n{ex.Message}"); }
+        }
+    }
+
+    private void CopyDirectory(string sourceDir, string destDir)
+    {
+        Directory.CreateDirectory(destDir);
+
+        foreach (var file in Directory.GetFiles(sourceDir))
+        {
+            string destFile = Path.Combine(destDir, Path.GetFileName(file));
+            try 
+            { 
+                File.Copy(file, destFile, true);
+                //TODO edge case handling - user copies to the same dir as scanned, view needs to be updated
+                //IndexedFiles.Add(file);
+            }
+            catch { }
+        }
+
+        foreach (var dir in Directory.GetDirectories(sourceDir))
+        {
+            string destSubDir = Path.Combine(destDir, Path.GetFileName(dir));
+            CopyDirectory(dir, destSubDir);
+        }
+
+        UpdateDataGrid();
     }
 
     [RelayCommand]
-    private void DeleteButtonClick()
+    private void MoveButtonClick() 
     {
-
+        List<IndexedFile> selectedFiles = GetSelectedFiles();
+        List<IndexedFolder> selectedFolders = GetSelectedFolders();
     }
 
     [RelayCommand]
-    private void RecentDumpButtonClick()
+    private void DeleteButtonClick() 
     {
+        List<IndexedFile> selectedFiles = GetSelectedFiles();
+        List<IndexedFolder> selectedFolders = GetSelectedFolders();
 
+        if (selectedFiles.Count == 0 && selectedFolders.Count == 0)
+        {
+            System.Windows.MessageBox.Show("No files or folders selected for deletion.");
+            return;
+        }
+
+        string folderWarning = selectedFolders.Count > 0 ? "\n\nWarning: Deleting a folder will also delete all its contents (files and subfolders)." : "";
+        if (System.Windows.MessageBox.Show(
+                $"Are you sure you want to delete {selectedFiles.Count} file(s) and {selectedFolders.Count} folder(s)?{folderWarning}",
+                "Confirm Delete",
+                MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+        {
+            return;
+        }
+
+        foreach (var file in selectedFiles)
+        {
+            try
+            {
+                File.Delete(file.FullPath);
+                FilteredFiles.Remove(file);
+            }
+            catch(Exception ex) 
+            {
+                System.Windows.MessageBox.Show($"Failed to delete file: {file.Name}\n{ex.Message}");
+            }
+        }
+        foreach (var folder in selectedFolders)
+        {
+            try
+            {
+                Directory.Delete(folder.FullPath);
+                FilteredFiles.Remove(folder);
+            }
+            catch (Exception ex)
+            {
+                System.Windows.MessageBox.Show($"Failed to delete file: {folder.Name}\n{ex.Message}");
+            }
+        }
+
+        UpdateDataGrid();
     }
 
     [RelayCommand]
-    private void ClearButtonClick()
-    {
-
+    private void RecentDumpButtonClick() 
+    { 
+    
     }
 
     [RelayCommand]
-    private void ScanFileDirectoryClick()
-    {
-
-    }
+    private void ClearButtonClick() { }
 
     [RelayCommand]
-    private void OpenFileLocationClick()
-    {
-
-    }
+    private void ScanFileDirectoryClick() { }
 
     [RelayCommand]
-    private void OpenFileClick()
-    {
-
-    }
+    private void OpenFileLocationClick() { }
 
     [RelayCommand]
-    private void OpenFolderLocationClick()
-    {
-
-    }
+    private void OpenFileClick() { }
 
     [RelayCommand]
-    private void ScanFolderDirectoryClick()
-    {
-
-    }
+    private void OpenFolderLocationClick() { }
 
     [RelayCommand]
-    private void FileDataGridDoubleClick()
-    {
+    private void ScanFolderDirectoryClick() { }
 
-    }
+    [RelayCommand]
+    private void FileDataGridDoubleClick() { }
+
 
     partial void OnExtensionSearchTextChanged(string? value)
     {
-        
     }
 
     partial void OnFileSearchTextChanged(string? value)
     {
-
+        UpdateDataGrid();
     }
 }
-

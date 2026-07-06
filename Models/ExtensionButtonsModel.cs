@@ -1,24 +1,19 @@
-﻿using System;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace DataOrganiser.Models
 {
-    public class ExtensionButtonModel
+    public partial class ExtensionButtonModel : ObservableObject
     {
-        public string Extension { get; set; }
-        public string Text { get; set; }
+        public string Extension { get; set; } = "";
+        public string Text { get; set; } = "";
 
-        private bool _isSelected;
-        public bool IsSelected
-        {
-            get => _isSelected;
-            set
-            {
-                _isSelected = value;
-            }
-        }
+        [ObservableProperty]
+        private bool isSelected;
     }
 }

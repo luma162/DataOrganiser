@@ -36,9 +36,8 @@ namespace DataOrganiser.Services
                 });
 
                 var subDirs = Directory.EnumerateDirectories(rootPath);
-
-                System.Threading.Tasks.Parallel.ForEach(subDirs, dir =>
-                {
+                var options = new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount };
+                Parallel.ForEach(subDirs, options, dir => {      
                     try
                     {
                         if (IsReparsePoint(dir))
