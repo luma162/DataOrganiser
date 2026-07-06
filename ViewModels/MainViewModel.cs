@@ -18,6 +18,7 @@ public partial class MainViewModel : ObservableObject
 {
     private readonly ExcludedFoldersManager _excludedFoldersManager;
     private Indexer _indexer;
+    private FileOperationsService _fileOperationsService;
 
     public BulkObservableCollection<IndexedFile> IndexedFiles { get; } = new();
     public BulkObservableCollection<IndexedFolder> IndexedFolders { get; } = new();
@@ -50,7 +51,7 @@ public partial class MainViewModel : ObservableObject
 
     private const string AllExtensionKey = "__ALL__"; 
 
-    public MainViewModel(Indexer indexer)
+    public MainViewModel(Indexer indexer, FileOperationsService fileOperationsService)
     {
         _indexer = indexer;
 
@@ -59,6 +60,7 @@ public partial class MainViewModel : ObservableObject
 
         FilteredFiles.Filter = FilterFiles;
         FilteredFolders.Filter = FilterFolders;
+        _fileOperationsService = fileOperationsService;
     }
 
     [RelayCommand]
@@ -277,12 +279,7 @@ public partial class MainViewModel : ObservableObject
             return;
         }
 
-        await ScanDirectoryAsync(_scannedDir);
-    }
-
-    private async Task ScanDirectoryAsync(string path)
-    {
-        CurrentDirectory = $"Current Directory: {path}";
+        CurrentDirectory = $"Current Directory: {_scannedDir}";
         CurrentDirectoryVisibility = Visibility.Visible;
         LoadingOverlayVisibility = Visibility.Visible;
 
@@ -291,7 +288,7 @@ public partial class MainViewModel : ObservableObject
 
         try
         {
-            await Task.Run(() => _indexer.IndexDirectory(path, filesBag, foldersBag));
+            await Task.Run(() => _indexer.IndexDirectory(_scannedDir, filesBag, foldersBag));
 
             IndexedFiles.Clear();
             IndexedFiles.AddRange(filesBag);
@@ -300,7 +297,6 @@ public partial class MainViewModel : ObservableObject
             IndexedFolders.AddRange(foldersBag);
 
             PopulateExtensionButtons();
-
         }
         finally
         {
@@ -309,7 +305,7 @@ public partial class MainViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void CopyButtonClick() 
+    private async Task CopyButtonClick()
     {
         List<IndexedFile> selectedFiles = GetSelectedFiles();
         List<IndexedFolder> selectedFolders = GetSelectedFolders();
@@ -318,79 +314,40 @@ public partial class MainViewModel : ObservableObject
         if (dialog.ShowDialog() != System.Windows.Forms.DialogResult.OK)
             return;
 
-        string targetPath = dialog.SelectedPath;
+        var copyDir = dialog.SelectedPath;
 
-        foreach (var file in selectedFiles)
+        _fileOperationsService.Copy(selectedFiles, selectedFolders, copyDir);
+
+        bool copiedIntoScannedDir = _scannedDir is not null
+            && copyDir.StartsWith(_scannedDir, StringComparison.OrdinalIgnoreCase);
+
+        if (copiedIntoScannedDir)
         {
-            try
-            {
-                string destPath = Path.Combine(targetPath, file.Name);
-                string fileNameWithoutExt = Path.GetFileNameWithoutExtension(file.Name);
-                string ext = Path.GetExtension(file.Name);
-                int count = 1;
-
-                while (File.Exists(destPath))
-                {
-                    destPath = Path.Combine(targetPath, $"{fileNameWithoutExt} ({count}){ext}");
-                    count++;
-                }
-
-                File.Copy(file.FullPath, destPath);
-                file.IsSelected = false;
-            }
-            catch (Exception ex)
-            { System.Windows.MessageBox.Show($"Failed to copy folder: {file.Name}\n{ex.Message}"); }
+            await RefreshButtonClick();
         }
-
-        foreach (var folder in selectedFolders)
-        {
-            try
-            {
-                string destPath = Path.Combine(targetPath, folder.Name);
-                int count = 1;
-                while (Directory.Exists(destPath))
-                {
-                    destPath = Path.Combine(targetPath, $"{folder.Name} ({count})");
-                    count++;
-                }
-                CopyDirectory(folder.FullPath, destPath);
-                folder.IsSelected = false;
-            }
-            catch (Exception ex)
-            { System.Windows.MessageBox.Show($"Failed to copy folder: {folder.Name}\n{ex.Message}"); }
-        }
-    }
-
-    private void CopyDirectory(string sourceDir, string destDir)
-    {
-        Directory.CreateDirectory(destDir);
-
-        foreach (var file in Directory.GetFiles(sourceDir))
-        {
-            string destFile = Path.Combine(destDir, Path.GetFileName(file));
-            try 
-            { 
-                File.Copy(file, destFile, true);
-                //TODO edge case handling - user copies to the same dir as scanned, view needs to be updated
-                //IndexedFiles.Add(file);
-            }
-            catch { }
-        }
-
-        foreach (var dir in Directory.GetDirectories(sourceDir))
-        {
-            string destSubDir = Path.Combine(destDir, Path.GetFileName(dir));
-            CopyDirectory(dir, destSubDir);
-        }
-
-        UpdateDataGrid();
     }
 
     [RelayCommand]
-    private void MoveButtonClick() 
+    private async Task MoveButtonClick()
     {
         List<IndexedFile> selectedFiles = GetSelectedFiles();
         List<IndexedFolder> selectedFolders = GetSelectedFolders();
+
+        var dialog = new System.Windows.Forms.FolderBrowserDialog();
+        if (dialog.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+            return;
+
+        if (dialog.SelectedPath == _scannedDir)
+        {
+            System.Windows.MessageBox.Show("Cannot move files / folders into the same directory");
+            return;
+        }
+
+        var moveDir = dialog.SelectedPath;
+
+        _fileOperationsService.Move(selectedFiles, selectedFolders, moveDir);
+
+        await RefreshButtonClick();
     }
 
     [RelayCommand]
@@ -399,44 +356,16 @@ public partial class MainViewModel : ObservableObject
         List<IndexedFile> selectedFiles = GetSelectedFiles();
         List<IndexedFolder> selectedFolders = GetSelectedFolders();
 
-        if (selectedFiles.Count == 0 && selectedFolders.Count == 0)
+        var result = _fileOperationsService.Delete(selectedFiles, selectedFolders);
+
+        foreach(var file in result.RemovedFiles)
         {
-            System.Windows.MessageBox.Show("No files or folders selected for deletion.");
-            return;
+            FilteredFiles.Remove(file);
         }
 
-        string folderWarning = selectedFolders.Count > 0 ? "\n\nWarning: Deleting a folder will also delete all its contents (files and subfolders)." : "";
-        if (System.Windows.MessageBox.Show(
-                $"Are you sure you want to delete {selectedFiles.Count} file(s) and {selectedFolders.Count} folder(s)?{folderWarning}",
-                "Confirm Delete",
-                MessageBoxButton.YesNo) != MessageBoxResult.Yes)
+        foreach(var folder in result.RemovedFolders)
         {
-            return;
-        }
-
-        foreach (var file in selectedFiles)
-        {
-            try
-            {
-                File.Delete(file.FullPath);
-                FilteredFiles.Remove(file);
-            }
-            catch(Exception ex) 
-            {
-                System.Windows.MessageBox.Show($"Failed to delete file: {file.Name}\n{ex.Message}");
-            }
-        }
-        foreach (var folder in selectedFolders)
-        {
-            try
-            {
-                Directory.Delete(folder.FullPath);
-                FilteredFiles.Remove(folder);
-            }
-            catch (Exception ex)
-            {
-                System.Windows.MessageBox.Show($"Failed to delete file: {folder.Name}\n{ex.Message}");
-            }
+             FilteredFolders.Remove(folder);
         }
 
         UpdateDataGrid();

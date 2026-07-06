@@ -20,7 +20,8 @@ public partial class App : System.Windows.Application
         //var dialogueService = new DialogueService();
         var excludedFoldersManager = new ExcludedFoldersManager();
         var indexer = new Indexer(excludedFoldersManager);
-        var mainViewModel = new MainViewModel(indexer);
+        var fileOperationsService = new FileOperationsService();
+        var mainViewModel = new MainViewModel(indexer, fileOperationsService);
 
         var mainWindow = new MainWindow { DataContext = mainViewModel };
         mainWindow.Show();
