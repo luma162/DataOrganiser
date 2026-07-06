@@ -198,17 +198,18 @@
             Visibility="{Binding CopyButtonVisibility}"
         />
 
-        <Button x:Name="RecentDumpButton"
+        <ToggleButton x:Name="RecentDumpButton"
             Content="Recent Dump"
             Height="35" Width="120"
             Margin="645,0,0,10"
             HorizontalAlignment="Left"
             VerticalAlignment="Bottom"
-            Style="{StaticResource FlatButtonStyle}"
+            Style="{StaticResource FlatButtonStyleToggle}"
             Grid.Row="1"
             Command="{Binding RecentDumpButtonClickCommand}"
             Visibility="{Binding RecentDumpButtonVisibility}"
             ToolTip="Show only files created within the last 2 weeks."
+            IsChecked="{Binding RecentDumpButtonSelected}"
         />
 
         <!--

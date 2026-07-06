@@ -6,6 +6,7 @@ using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Windows;
+using System.Windows.Controls.Primitives;
 using System.Windows.Data;
 using System.Windows.Forms;
 using System.Windows.Media;
@@ -38,6 +39,8 @@ public partial class MainViewModel : ObservableObject
     [ObservableProperty] private Visibility copyButtonVisibility = Visibility.Collapsed;
     [ObservableProperty] private Visibility recentDumpButtonVisibility = Visibility.Collapsed;
     [ObservableProperty] private Visibility extensionGroupsVisibility = Visibility.Collapsed;
+
+    [ObservableProperty] private bool recentDumpButtonSelected;
 
     [ObservableProperty] private string? extensionSearchText;
     [ObservableProperty] private string? fileSearchText;
@@ -208,7 +211,20 @@ public partial class MainViewModel : ObservableObject
             matchesSearch = nameContainsSearchText;
         }
 
-        return matchesExtension && matchesSearch;
+        bool recentDump;
+        var time = DateTime.Now.AddDays(-14);
+        // get recent dump option from settings
+        // using placeholder value of -14 days for now
+        if (RecentDumpButtonSelected)
+        {
+            recentDump = file.Created >= time;
+        }
+        else
+        {
+            recentDump = true;
+        }
+
+        return matchesExtension && matchesSearch && recentDump;
     }
 
     private bool FilterFolders(object obj)
@@ -290,16 +306,6 @@ public partial class MainViewModel : ObservableObject
         {
             LoadingOverlayVisibility = Visibility.Collapsed;
         }
-    }
-
-    private List<IndexedFile> GetSelectedFiles()
-    {
-        return IndexedFiles.Where(f => f.IsSelected).ToList();
-    }
-
-    private List<IndexedFolder> GetSelectedFolders()
-    {
-        return IndexedFolders.Where(f => f.IsSelected).ToList();
     }
 
     [RelayCommand]
@@ -438,8 +444,8 @@ public partial class MainViewModel : ObservableObject
 
     [RelayCommand]
     private void RecentDumpButtonClick() 
-    { 
-    
+    {
+        UpdateDataGrid();
     }
 
     [RelayCommand]
@@ -471,5 +477,15 @@ public partial class MainViewModel : ObservableObject
     partial void OnFileSearchTextChanged(string? value)
     {
         UpdateDataGrid();
+    }
+
+    private List<IndexedFile> GetSelectedFiles()
+    {
+        return IndexedFiles.Where(f => f.IsSelected).ToList();
+    }
+
+    private List<IndexedFolder> GetSelectedFolders()
+    {
+        return IndexedFolders.Where(f => f.IsSelected).ToList();
     }
 }
