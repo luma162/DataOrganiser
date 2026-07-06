@@ -392,7 +392,7 @@
                     Content="Refresh"
                     Height="35" Width="80"
                     Margin="0,0,50,0" 
-                    Command="{Binding RefreshButtonClick}"
+                    Command="{Binding RefreshButtonClickCommand}"
                     Grid.Column="1"
                     HorizontalAlignment="Right"
                     VerticalAlignment="Top"

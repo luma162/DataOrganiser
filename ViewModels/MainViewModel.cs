@@ -253,7 +253,44 @@ public partial class MainViewModel : ObservableObject
 
 
     [RelayCommand]
-    private void RefreshButtonClick() { }
+    private async Task RefreshButtonClick()
+    {
+        if (_scannedDir is null)
+        {
+            System.Windows.MessageBox.Show("No directory to refresh. Please scan a folder first.");
+            return;
+        }
+
+        await ScanDirectoryAsync(_scannedDir);
+    }
+
+    private async Task ScanDirectoryAsync(string path)
+    {
+        CurrentDirectory = $"Current Directory: {path}";
+        CurrentDirectoryVisibility = Visibility.Visible;
+        LoadingOverlayVisibility = Visibility.Visible;
+
+        var filesBag = new ConcurrentBag<IndexedFile>();
+        var foldersBag = new ConcurrentBag<IndexedFolder>();
+
+        try
+        {
+            await Task.Run(() => _indexer.IndexDirectory(path, filesBag, foldersBag));
+
+            IndexedFiles.Clear();
+            IndexedFiles.AddRange(filesBag);
+
+            IndexedFolders.Clear();
+            IndexedFolders.AddRange(foldersBag);
+
+            PopulateExtensionButtons();
+
+        }
+        finally
+        {
+            LoadingOverlayVisibility = Visibility.Collapsed;
+        }
+    }
 
     private List<IndexedFile> GetSelectedFiles()
     {
