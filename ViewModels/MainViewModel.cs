@@ -20,6 +20,7 @@ public partial class MainViewModel : ObservableObject
     private Indexer _indexer;
     private ExtensionGroupService _extensionGroupService;
     private FileOperationsService _fileOperationsService;
+    private WindowService _windowService;
 
     public BulkObservableCollection<IndexedFile> IndexedFiles { get; } = new();
     public BulkObservableCollection<IndexedFolder> IndexedFolders { get; } = new();
@@ -54,11 +55,12 @@ public partial class MainViewModel : ObservableObject
 
     private const string AllExtensionKey = "__ALL__"; 
 
-    public MainViewModel(Indexer indexer, FileOperationsService fileOperationsService, ExtensionGroupService extensionGroupService)
+    public MainViewModel(Indexer indexer, FileOperationsService fileOperationsService, ExtensionGroupService extensionGroupService, WindowService windowService)
     {
         _indexer = indexer;
         _fileOperationsService = fileOperationsService;
         _extensionGroupService = extensionGroupService;
+        _windowService = windowService;
 
         FilteredFiles = new ListCollectionView(IndexedFiles);
         FilteredFolders = new ListCollectionView(IndexedFolders);
@@ -414,25 +416,15 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void ExtensionGroupClick(ExtensionGroupModel group)
     {
-        //System.Windows.MessageBox.Show(group.Extensions[0]);
-        //System.Windows.MessageBox.Show("group pressed: " + group.Name);
-
         if (group == null)
             return;
-
-        //System.Windows.MessageBox.Show("group pressed: " + group.Name);
-        System.Windows.MessageBox.Show(group.Extensions[0]);
 
         if (_allButton is not null)
             _allButton.IsSelected = false;
 
         foreach (string ext in group.Extensions)
         {
-            var matchingButton = ExtensionButtons.FirstOrDefault(
-                b => string.Equals(
-                    b.Extension,
-                    ext,
-                    StringComparison.OrdinalIgnoreCase));
+            var matchingButton = ExtensionButtons.FirstOrDefault(b => string.Equals(b.Extension, ext, StringComparison.OrdinalIgnoreCase));
 
             if (matchingButton is not null)
             {
@@ -443,25 +435,14 @@ public partial class MainViewModel : ObservableObject
         UpdateDataGrid();
     }
 
-
-
-
-
-
-    //    ExtensionGroup button = group.Extensions;
-
-    //    foreach(ExtensionButtonModel button in group)
-    //    {
-    //        ExtensionClick(button);
-    //    }
-
-    //    //ExtensionButtonModel button = group.
-
-    //    //ExtensionClick(ExtensionButtonModel button);
-    //}
-
     [RelayCommand]
     private void ScanFileDirectoryClick() { }
+
+    [RelayCommand]
+    private void SettingsButtonClick()
+    {
+        _windowService.Show();
+    }
 
     [RelayCommand]
     private void OpenFileLocationClick() { }

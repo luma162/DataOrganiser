@@ -34,12 +34,4 @@ public partial class MainWindow : Window
         
     }
 
-    private void SettingsButton_Click(object sender, RoutedEventArgs e)
-    {
-        Settings settingsWindow = new Settings();
-
-        settingsWindow.Show();
-    }
-
-
 }

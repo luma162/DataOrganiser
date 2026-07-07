@@ -22,7 +22,9 @@ public partial class App : System.Windows.Application
         var extensionGroupService = new ExtensionGroupService();
         var indexer = new Indexer(excludedFoldersService);
         var fileOperationsService = new FileOperationsService();
-        var mainViewModel = new MainViewModel(indexer, fileOperationsService, extensionGroupService);
+        var windowService = new WindowService();
+
+        var mainViewModel = new MainViewModel(indexer, fileOperationsService, extensionGroupService, windowService);
 
         var mainWindow = new MainWindow { DataContext = mainViewModel };
         mainWindow.Show();
