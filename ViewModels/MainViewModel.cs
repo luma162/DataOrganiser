@@ -5,6 +5,7 @@ using DataOrganiser.Services;
 using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Text.Json;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Data;
@@ -16,14 +17,15 @@ namespace DataOrganiser.ViewModels;
 
 public partial class MainViewModel : ObservableObject
 {
-    private readonly ExcludedFoldersManager _excludedFoldersManager;
     private Indexer _indexer;
+    private ExtensionGroupService _extensionGroupService;
     private FileOperationsService _fileOperationsService;
 
     public BulkObservableCollection<IndexedFile> IndexedFiles { get; } = new();
     public BulkObservableCollection<IndexedFolder> IndexedFolders { get; } = new();
 
     public ObservableCollection<ExtensionButtonModel> ExtensionButtons { get; } = new();
+    public ObservableCollection<ExtensionGroupModel> EnabledExtensionGroups {  get; } = new();
 
     public ListCollectionView FilteredFiles { get; }
     public ListCollectionView FilteredFolders { get; }
@@ -52,20 +54,19 @@ public partial class MainViewModel : ObservableObject
 
     private const string AllExtensionKey = "__ALL__"; 
 
-    public MainViewModel(Indexer indexer, FileOperationsService fileOperationsService)
+    public MainViewModel(Indexer indexer, FileOperationsService fileOperationsService, ExtensionGroupService extensionGroupService)
     {
         _indexer = indexer;
+        _fileOperationsService = fileOperationsService;
+        _extensionGroupService = extensionGroupService;
 
         FilteredFiles = new ListCollectionView(IndexedFiles);
         FilteredFolders = new ListCollectionView(IndexedFolders);
         FilteredExtensionButtons = new ListCollectionView(ExtensionButtons);
 
-
-
         FilteredFiles.Filter = FilterFiles;
         FilteredFolders.Filter = FilterFolders;
         FilteredExtensionButtons.Filter = FilterExtensionButtons;
-        _fileOperationsService = fileOperationsService;
     }
 
     [RelayCommand]
@@ -102,6 +103,7 @@ public partial class MainViewModel : ObservableObject
             IndexedFolders.AddRange(foldersBag);
 
             PopulateExtensionButtons();
+            PopulateExtensionGroups();
 
             SearchBarVisibility = Visibility.Visible;
             ExtensionSearchVisibility = Visibility.Visible;
@@ -144,6 +146,16 @@ public partial class MainViewModel : ObservableObject
                 Extension = ext,
                 Text = ext
             });
+        }
+    }
+
+    private void PopulateExtensionGroups()
+    {
+        EnabledExtensionGroups.Clear();
+
+        foreach (var group in _extensionGroupService.GetEnabledGroups())
+        {
+            EnabledExtensionGroups.Add(group);
         }
     }
 
@@ -398,6 +410,49 @@ public partial class MainViewModel : ObservableObject
     {
         ExtensionSearchText = "";
     }
+
+    [RelayCommand]
+    private void ExtensionGroupClick(ExtensionGroupModel group)
+    {
+        if (group == null)
+            return;
+
+        if (_allButton is not null)
+            _allButton.IsSelected = false;
+
+        foreach (string ext in group.Extensions)
+        {
+            var matchingButton = ExtensionButtons.FirstOrDefault(
+                b => string.Equals(
+                    b.Extension,
+                    ext,
+                    StringComparison.OrdinalIgnoreCase));
+
+            if (matchingButton is not null)
+            {
+                matchingButton.IsSelected = true;
+            }
+        }
+
+        UpdateDataGrid();
+    }
+
+
+
+
+
+
+    //    ExtensionGroup button = group.Extensions;
+
+    //    foreach(ExtensionButtonModel button in group)
+    //    {
+    //        ExtensionClick(button);
+    //    }
+
+    //    //ExtensionButtonModel button = group.
+
+    //    //ExtensionClick(ExtensionButtonModel button);
+    //}
 
     [RelayCommand]
     private void ScanFileDirectoryClick() { }

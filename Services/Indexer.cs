@@ -10,8 +10,8 @@ namespace DataOrganiser.Services
 {
     public class Indexer
     {
-        private readonly ExcludedFoldersManager ef;
-        public Indexer(ExcludedFoldersManager excludedFolders)
+        private readonly ExcludedFoldersService ef;
+        public Indexer(ExcludedFoldersService excludedFolders)
         {
             ef = excludedFolders;
         }

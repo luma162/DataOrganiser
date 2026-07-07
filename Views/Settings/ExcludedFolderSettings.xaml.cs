@@ -20,13 +20,13 @@ namespace DataOrganiser
     public partial class ExcludedFolderSettings : System.Windows.Controls.UserControl
     {
         //private List<string> _excludedFolders;
-        private ExcludedFoldersManager _excludedFoldersManager;
+        private ExcludedFoldersService _excludedFoldersManager;
         public ObservableCollection<string> ExcludedFolders { get; set; }
 
         public ExcludedFolderSettings(List<string> excludedFolders)
         {
             InitializeComponent();
-            _excludedFoldersManager = new ExcludedFoldersManager();
+            _excludedFoldersManager = new ExcludedFoldersService();
             ExcludedFolders = new ObservableCollection<string>(_excludedFoldersManager.ExcludedFolders ?? new List<string>());
             DataContext = this;
             //this._excludedFolders = excludedFolders ?? new List<string>();
@@ -35,7 +35,7 @@ namespace DataOrganiser
         public ExcludedFolderSettings()
         {
             InitializeComponent();
-            _excludedFoldersManager = new ExcludedFoldersManager();
+            _excludedFoldersManager = new ExcludedFoldersService();
             ExcludedFolders = new ObservableCollection<string>(_excludedFoldersManager.ExcludedFolders ?? new List<string>());
             DataContext = this;
         }

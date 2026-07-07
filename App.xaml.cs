@@ -18,10 +18,11 @@ public partial class App : System.Windows.Application
     {
         //var scanner = new FileSystemScanner();
         //var dialogueService = new DialogueService();
-        var excludedFoldersManager = new ExcludedFoldersManager();
-        var indexer = new Indexer(excludedFoldersManager);
+        var excludedFoldersService = new ExcludedFoldersService();
+        var extensionGroupService = new ExtensionGroupService();
+        var indexer = new Indexer(excludedFoldersService);
         var fileOperationsService = new FileOperationsService();
-        var mainViewModel = new MainViewModel(indexer, fileOperationsService);
+        var mainViewModel = new MainViewModel(indexer, fileOperationsService, extensionGroupService);
 
         var mainWindow = new MainWindow { DataContext = mainViewModel };
         mainWindow.Show();

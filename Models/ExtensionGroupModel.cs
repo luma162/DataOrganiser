@@ -1,9 +1,10 @@
+using DataOrganiser.Services;
 using System.Collections.Generic;
 using System.ComponentModel;
 
 namespace DataOrganiser.Models
 {
-    public class ExtensionGroup : INotifyPropertyChanged
+    public class ExtensionGroupModel : INotifyPropertyChanged
     {
         private bool _isEnabled;
 
@@ -19,8 +20,6 @@ namespace DataOrganiser.Models
                 {
                     _isEnabled = value;
                     PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsEnabled)));
-                    if (!DataOrganiser.Models.ExtensionGroupManager.IsLoading)
-                        DataOrganiser.Models.ExtensionGroupManager.Save();
                 }
             }
         }

@@ -8,14 +8,14 @@ using System.Threading.Tasks;
 
 namespace DataOrganiser.Services
 {
-    public class ExcludedFoldersManager
+    public class ExcludedFoldersService
     {
         private readonly string appDataPath;
         private readonly string filePath;
 
         public List<string> ExcludedFolders { get; private set; } = new List<string>();
 
-        public ExcludedFoldersManager()
+        public ExcludedFoldersService()
         {
             appDataPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DataOrganiser");
             filePath = Path.Combine(appDataPath, "excludedfolders.json");

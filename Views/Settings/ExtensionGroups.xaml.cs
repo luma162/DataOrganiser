@@ -13,7 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
-using DataOrganiser.Models;
+using DataOrganiser.Services;
 
 namespace DataOrganiser
 {
@@ -22,7 +22,7 @@ namespace DataOrganiser
         public ExtensionGroups()
         {
             InitializeComponent();
-            DataContext = ExtensionGroupManager.Groups;
+            //DataContext = ExtensionGroupService.Groups;
         }
 
         private void EditButton_Click(object sender, RoutedEventArgs e)
