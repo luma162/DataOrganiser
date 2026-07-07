@@ -148,8 +148,8 @@
                         <DataTemplate>
                             <Button Content="{Binding Name}" Margin="0,0,8,0"
                             Style="{StaticResource FlatButtonStyle}"
-                            Command="{Binding DataContext.ExtensionGroupClickCommand}"
-                            Tag="{Binding}"
+                            Command="{Binding DataContext.ExtensionGroupClickCommand, RelativeSource={RelativeSource AncestorType=Window}}"
+                            CommandParameter="{Binding}"
                             Height="35"                            
                             Background="#2c3f66"
                             BorderBrush="#3B3B50"                            

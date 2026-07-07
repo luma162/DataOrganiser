@@ -414,8 +414,14 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private void ExtensionGroupClick(ExtensionGroupModel group)
     {
+        //System.Windows.MessageBox.Show(group.Extensions[0]);
+        //System.Windows.MessageBox.Show("group pressed: " + group.Name);
+
         if (group == null)
             return;
+
+        //System.Windows.MessageBox.Show("group pressed: " + group.Name);
+        System.Windows.MessageBox.Show(group.Extensions[0]);
 
         if (_allButton is not null)
             _allButton.IsSelected = false;
