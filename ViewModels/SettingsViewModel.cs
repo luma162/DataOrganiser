@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
+using DataOrganiser.Models;
 
 namespace DataOrganiser.ViewModels
 {
@@ -19,6 +20,8 @@ namespace DataOrganiser.ViewModels
         private GeneralSettingsService _generalSettingsService;
 
         public ObservableCollection<string> ExcludedFolders { get; } = new();
+        public ObservableCollection<ExtensionGroupModel> ExtensionGroups { get; } = new();
+
         [ObservableProperty] private string? excludedFolderInput;
         //private FileOperationsService _fileOperationsService;
 
@@ -46,6 +49,11 @@ namespace DataOrganiser.ViewModels
             foreach (var folder in _excludeFoldersService.ExcludedFolders)
             {
                 ExcludedFolders.Add(folder);
+            }
+
+            foreach (var group in _extensionGroupService.GetAllExtensionGroups())
+            {
+                ExtensionGroups.Add(group);
             }
 
             recentDumpSelection = _generalSettingsService.GetRecentDumpDuration();

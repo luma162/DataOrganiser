@@ -341,6 +341,7 @@ public partial class MainViewModel : ObservableObject
             IndexedFolders.AddRange(foldersBag);
 
             PopulateExtensionButtons();
+            PopulateExtensionGroups();
         }
         finally
         {

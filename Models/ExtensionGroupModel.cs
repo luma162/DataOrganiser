@@ -1,31 +1,21 @@
 using DataOrganiser.Services;
 using System.Collections.Generic;
 using System.ComponentModel;
+using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace DataOrganiser.Models
 {
-    public class ExtensionGroupModel : INotifyPropertyChanged
+    public partial class ExtensionGroupModel : ObservableObject
     {
-        private bool _isEnabled;
+        [ObservableProperty]
+        private string name = string.Empty;
 
-        public string Name { get; set; }
-        public List<string> Extensions { get; set; }
+        [ObservableProperty]
+        private List<string> extensions = new();
 
-        public bool IsEnabled
-        {
-            get => _isEnabled;
-            set
-            {
-                if (_isEnabled != value)
-                {
-                    _isEnabled = value;
-                    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(IsEnabled)));
-                }
-            }
-        }
+        [ObservableProperty]
+        private bool isEnabled;
 
-        public string ExtensionsDisplay => string.Join(", ", Extensions);
-
-        public event PropertyChangedEventHandler PropertyChanged;
+        public string ExtensionsDisplay => string.Join(", ", extensions);
     }
 }

@@ -7,8 +7,7 @@ namespace DataOrganiser.Services
 {
     public class ExtensionGroupService
     {
-        private static readonly string SettingsPath = Path.Combine(
-            Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DataOrganiser", "extensiongroups.json");
+        private static readonly string SettingsPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), "DataOrganiser", "extensiongroups.json");
 
         private readonly ObservableCollection<ExtensionGroupModel> _groups = new();
 
@@ -22,13 +21,16 @@ namespace DataOrganiser.Services
             return _groups.Where(g => g.IsEnabled).ToList();
         }
 
+        public List<ExtensionGroupModel> GetAllExtensionGroups()
+        {
+            return _groups.ToList();
+        }
+
         public void Save()
         {
             Directory.CreateDirectory(Path.GetDirectoryName(SettingsPath)!);
 
-            File.WriteAllText(
-                SettingsPath,
-                JsonSerializer.Serialize(_groups));
+            File.WriteAllText(SettingsPath, JsonSerializer.Serialize(_groups));
         }
 
         private void Load()
