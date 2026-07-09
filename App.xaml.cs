@@ -20,9 +20,10 @@ public partial class App : System.Windows.Application
         //var dialogueService = new DialogueService();
         var excludedFoldersService = new ExcludedFoldersService();
         var extensionGroupService = new ExtensionGroupService();
+        var generalSettingsService = new GeneralSettingsService();
         var indexer = new Indexer(excludedFoldersService);
         var fileOperationsService = new FileOperationsService();
-        var windowService = new WindowService();
+        var windowService = new WindowService(extensionGroupService, excludedFoldersService, generalSettingsService);
 
         var mainViewModel = new MainViewModel(indexer, fileOperationsService, extensionGroupService, windowService);
 

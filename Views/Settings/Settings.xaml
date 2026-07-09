@@ -13,31 +13,6 @@
         Background="#191f2e">
 
     <Window.Resources>
-        <Style x:Key="RoundedButtonStyle" TargetType="Button">
-            <Setter Property="Background" Value="#2D89EF"/>
-            <Setter Property="Foreground" Value="White"/>
-            <Setter Property="FontWeight" Value="Bold"/>
-            <Setter Property="Cursor" Value="Hand"/>
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Button">
-                        <Border Background="{TemplateBinding Background}" 
-                                BorderBrush="{TemplateBinding BorderBrush}"                        
-                                CornerRadius="10">
-                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="IsMouseOver" Value="True">
-                    <Setter Property="Background" Value="#1B5790"/>
-                </Trigger>
-                <Trigger Property="IsPressed" Value="True">
-                    <Setter Property="Background" Value="#17406A"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
         <Style x:Key="SidebarBorder" TargetType="Border">
             <Setter Property="BorderThickness" Value="2"/>
             <Setter Property="CornerRadius" Value="8"/>
@@ -49,69 +24,72 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="175"/>
+            <ColumnDefinition Width="200"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
 
         <StackPanel Grid.Column="0" Background="#0d1121">
-            <Border x:Name="Border3" Style="{StaticResource SidebarBorder}" BorderBrush="Transparent" Background="Transparent" MouseLeftButtonUp="SidebarBorder_MouseLeftButtonUp">
+            <Button Style="{StaticResource SidebarButtonStyle}" Command="{Binding SideBarContentClickCommand}" CommandParameter="General">
                 <StackPanel Orientation="Horizontal">
-                    <Button x:Name="General"
-                Content=""
-                Height="35" Width="35"
-                HorizontalAlignment="Left"
-                VerticalAlignment="Center"
-                Margin="5,0,0,0"
-                IsHitTestVisible="False"
-                Style="{StaticResource RoundedButtonStyle}"
-        />
-                    <TextBlock Text="General"
-                    Foreground="White"
-                    VerticalAlignment="Center"
-                    Margin="5,0,0,0"
-                    FontSize="14"
-        />
-                </StackPanel>
-            </Border>
-            <Border x:Name="Border1" Style="{StaticResource SidebarBorder}" BorderBrush="Transparent" Background="Transparent" MouseLeftButtonUp="SidebarBorder_MouseLeftButtonUp">
-                <StackPanel Orientation="Horizontal">
-                    <Button x:Name="ExcludedFolders"
-                                Content=""
-                                Height="35" Width="35"
-                                HorizontalAlignment="Left"
-                                VerticalAlignment="Center"
-                                Margin="5,0,0,0"
-                                IsHitTestVisible="False"
-                                Style="{StaticResource RoundedButtonStyle}"                                
+                    <Button Content=""
+                            Height="35"
+                            Width="35"
+                            IsHitTestVisible="False"
+                            Style="{StaticResource RoundedButtonStyle}"
                     />
+
+                    <TextBlock Text="General"
+                               Foreground="White"
+                               VerticalAlignment="Center"
+                               Margin="5,0,0,0"
+                               FontSize="14"
+                    />
+                </StackPanel>
+            </Button>
+
+
+            <Button Style="{StaticResource SidebarButtonStyle}"
+                    Command="{Binding SideBarContentClickCommand}"
+                    CommandParameter="ExcludedFolders">
+                <StackPanel Orientation="Horizontal">
+                    <Button Content=""
+                            Height="35"
+                            Width="35"
+                            IsHitTestVisible="False"
+                            Style="{StaticResource RoundedButtonStyle}"
+                    />
+
                     <TextBlock Text="Excluded Folders"
                                Foreground="White"
                                VerticalAlignment="Center"
                                Margin="5,0,0,0"
                                FontSize="14"
-                    />   
+                    />
                 </StackPanel>
-            </Border>
-            <Border x:Name="Border2" Style="{StaticResource SidebarBorder}" BorderBrush="Transparent" Background="Transparent" MouseLeftButtonUp="SidebarBorder_MouseLeftButtonUp">
+            </Button>
+
+            <Button Style="{StaticResource SidebarButtonStyle}"
+                    Command="{Binding SideBarContentClickCommand}"
+                    CommandParameter="ExtensionGroups">
+
                 <StackPanel Orientation="Horizontal">
-                    <Button x:Name="ExtensionGroup"
-                            Content=""
-                            Height="35" Width="35"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Center"
-                            Margin="5,0,0,0"
+                    <Button Content=""
+                            Height="35"
+                            Width="35"
                             IsHitTestVisible="False"
                             Style="{StaticResource RoundedButtonStyle}"
                     />
+
                     <TextBlock Text="Extension Groups"
-                                Foreground="White"
-                                VerticalAlignment="Center"
-                                Margin="5,0,0,0"
-                                FontSize="14"
+                               Foreground="White"
+                               VerticalAlignment="Center"
+                               Margin="5,0,0,0"
+                               FontSize="14"
                     />
                 </StackPanel>
-            </Border>
+            </Button>
         </StackPanel>
-        <ContentControl x:Name="ContentArea" Grid.Column="1"/>
+        
+        <ContentControl x:Name="ContentArea" Grid.Column="1" Content="{Binding CurrentPage}"/>
     </Grid>
 </Window>

@@ -9,7 +9,7 @@
     <StackPanel Margin="20">
         <TextBlock Text="General Settings" Foreground="White" FontSize="24"/>
         <TextBlock Text="Recent Dump Duration" Foreground="White" Margin="0,10,0,0"/>
-        <ComboBox x:Name="RecentDumpDuration" IsEditable="False" IsReadOnly="False" Width="200px" Margin="0,-15,100,0">
+        <ComboBox IsEditable="False" IsReadOnly="False" Width="200px" Margin="0,-15,100,0" SelectedItem="{Binding RecentDumpSelection}">
             <ComboBoxItem Content="1 hour"/>
             <ComboBoxItem Content="5 hours"/>
             <ComboBoxItem Content="12 hours"/>

@@ -6,18 +6,94 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Collections.ObjectModel;
+using System.Windows.Controls;
 
 namespace DataOrganiser.ViewModels
 {
-    public class SettingsViewModel : ObservableObject
+    public partial class SettingsViewModel : ObservableObject
     {
-        private Indexer _indexer;
+        //private Indexer _indexer;
         private ExtensionGroupService _extensionGroupService;
-        private FileOperationsService _fileOperationsService;
+        private ExcludedFoldersService _excludeFoldersService;
+        private GeneralSettingsService _generalSettingsService;
 
-        public SettingsViewModel()
+        public ObservableCollection<string> ExcludedFolders { get; } = new();
+        [ObservableProperty] private string? excludedFolderInput;
+        //private FileOperationsService _fileOperationsService;
+
+        [ObservableProperty] private object? currentPage;
+        [ObservableProperty] private ComboBoxItem? recentDumpSelection;
+
+        public SettingsViewModel(ExtensionGroupService extensionGroupService, ExcludedFoldersService excludedFoldersService, GeneralSettingsService generalSettingsService)
         {
+            _extensionGroupService = extensionGroupService;
+            _excludeFoldersService = excludedFoldersService;
+            _generalSettingsService = generalSettingsService;
 
+            foreach (var folder in _excludeFoldersService.ExcludedFolders)
+            {
+                ExcludedFolders.Add(folder);
+            }
+
+            //CurrentPage = new GeneralSettings();
+            CurrentPage = new ExcludedFolderSettings();
+        }
+
+        [RelayCommand]
+        private void SideBarContentClick(string page)
+        {
+            switch (page)
+            {
+                case "General":
+                    CurrentPage = new GeneralSettings();
+                    break;
+
+                case "ExcludedFolders":
+                    CurrentPage = new ExcludedFolderSettings();
+                    break;
+
+
+                case "ExtensionGroups":
+                    CurrentPage = new ExtensionGroups();
+                    break;
+            }
+        }
+
+        partial void OnRecentDumpSelectionChanged(ComboBoxItem? value)
+        {
+            if (value != null)
+            {
+                MessageBox.Show(value.Content.ToString());
+            }
+        }
+
+        [RelayCommand]
+        private void AddExcludedFolder()
+        {
+            if (string.IsNullOrWhiteSpace(ExcludedFolderInput))
+                return;
+
+
+            _excludeFoldersService.AddFolder(ExcludedFolderInput);
+
+
+            if (!ExcludedFolders.Contains(ExcludedFolderInput, StringComparer.OrdinalIgnoreCase))
+            {
+                ExcludedFolders.Add(ExcludedFolderInput);
+            }
+
+
+            ExcludedFolderInput = "";
+        }
+
+
+        [RelayCommand]
+        private void RemoveFolder(string folder)
+        {
+            _excludeFoldersService.RemoveFolder(folder);
+
+            ExcludedFolders.Remove(folder);
         }
     }
 }
