@@ -25,7 +25,7 @@ public partial class App : System.Windows.Application
         var fileOperationsService = new FileOperationsService();
         var windowService = new WindowService(extensionGroupService, excludedFoldersService, generalSettingsService);
 
-        var mainViewModel = new MainViewModel(indexer, fileOperationsService, extensionGroupService, windowService);
+        var mainViewModel = new MainViewModel(indexer, fileOperationsService, extensionGroupService, windowService, generalSettingsService);
 
         var mainWindow = new MainWindow { DataContext = mainViewModel };
         mainWindow.Show();

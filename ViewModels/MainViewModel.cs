@@ -21,6 +21,7 @@ public partial class MainViewModel : ObservableObject
     private ExtensionGroupService _extensionGroupService;
     private FileOperationsService _fileOperationsService;
     private WindowService _windowService;
+    private GeneralSettingsService _generalSettingsService;
 
     public BulkObservableCollection<IndexedFile> IndexedFiles { get; } = new();
     public BulkObservableCollection<IndexedFolder> IndexedFolders { get; } = new();
@@ -55,12 +56,13 @@ public partial class MainViewModel : ObservableObject
 
     private const string AllExtensionKey = "__ALL__"; 
 
-    public MainViewModel(Indexer indexer, FileOperationsService fileOperationsService, ExtensionGroupService extensionGroupService, WindowService windowService)
+    public MainViewModel(Indexer indexer, FileOperationsService fileOperationsService, ExtensionGroupService extensionGroupService, WindowService windowService, GeneralSettingsService generalSettingsService)
     {
         _indexer = indexer;
         _fileOperationsService = fileOperationsService;
         _extensionGroupService = extensionGroupService;
         _windowService = windowService;
+        _generalSettingsService = generalSettingsService;
 
         FilteredFiles = new ListCollectionView(IndexedFiles);
         FilteredFolders = new ListCollectionView(IndexedFolders);
@@ -244,9 +246,9 @@ public partial class MainViewModel : ObservableObject
         }
 
         bool recentDump;
-        var time = DateTime.Now.AddDays(-14);
-        // get recent dump option from settings
-        // using placeholder value of -14 days for now
+        //var time = DateTime.Now.AddDays(-14);
+        var time = _generalSettingsService.GetRecentDump();
+
         if (RecentDumpButtonSelected)
         {
             recentDump = file.Created >= time;
@@ -267,7 +269,19 @@ public partial class MainViewModel : ObservableObject
         bool matchesSearch = string.IsNullOrWhiteSpace(FileSearchText)
             || (folder.Name?.Contains(FileSearchText, StringComparison.OrdinalIgnoreCase) ?? false);
 
-        return matchesSearch;
+        bool recentDump;
+        var time = _generalSettingsService.GetRecentDump();
+
+        if (RecentDumpButtonSelected)
+        {
+            recentDump = folder.Created >= time;
+        }
+        else
+        {
+            recentDump = true;
+        }
+
+        return matchesSearch && recentDump;
     }
 
     [RelayCommand]

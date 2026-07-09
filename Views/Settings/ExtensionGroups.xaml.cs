@@ -22,18 +22,6 @@ namespace DataOrganiser
         public ExtensionGroups()
         {
             InitializeComponent();
-            //DataContext = ExtensionGroupService.Groups;
-        }
-
-        private void EditButton_Click(object sender, RoutedEventArgs e)
-        {
-            return;
-            // open edit window
-            // for edit window:
-            // access extensiongroupmanager and start to decode the json file
-            // allow changes by use of entering extension name and add button
-            // have remove button for each extension in the group
-            // each add or remove updates the json file (no need for save button)
         }
     }
 }

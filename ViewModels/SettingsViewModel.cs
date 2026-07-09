@@ -23,7 +23,19 @@ namespace DataOrganiser.ViewModels
         //private FileOperationsService _fileOperationsService;
 
         [ObservableProperty] private object? currentPage;
-        [ObservableProperty] private ComboBoxItem? recentDumpSelection;
+        [ObservableProperty] private string? recentDumpSelection;
+
+        public List<string> RecentDumpOptions { get; } =
+        [
+            "1 hour",
+            "5 hours",
+            "12 hours",
+            "1 day",
+            "2 days",
+            "5 days",
+            "7 days",
+            "14 days"
+        ];
 
         public SettingsViewModel(ExtensionGroupService extensionGroupService, ExcludedFoldersService excludedFoldersService, GeneralSettingsService generalSettingsService)
         {
@@ -36,8 +48,10 @@ namespace DataOrganiser.ViewModels
                 ExcludedFolders.Add(folder);
             }
 
-            //CurrentPage = new GeneralSettings();
-            CurrentPage = new ExcludedFolderSettings();
+            recentDumpSelection = _generalSettingsService.GetRecentDumpDuration();
+
+            CurrentPage = new GeneralSettings();
+            //CurrentPage = new ExcludedFolderSettings();
         }
 
         [RelayCommand]
@@ -60,12 +74,12 @@ namespace DataOrganiser.ViewModels
             }
         }
 
-        partial void OnRecentDumpSelectionChanged(ComboBoxItem? value)
+        partial void OnRecentDumpSelectionChanged(string? value)
         {
-            if (value != null)
-            {
-                MessageBox.Show(value.Content.ToString());
-            }
+            if (value == null)
+                return; 
+
+            _generalSettingsService.EditRecentDump(value);
         }
 
         [RelayCommand]
@@ -73,7 +87,6 @@ namespace DataOrganiser.ViewModels
         {
             if (string.IsNullOrWhiteSpace(ExcludedFolderInput))
                 return;
-
 
             _excludeFoldersService.AddFolder(ExcludedFolderInput);
 
