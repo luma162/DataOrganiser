@@ -278,9 +278,9 @@
                     </DataGrid.RowHeaderStyle>
                     <DataGrid.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="Open File" Command="{Binding OpenFileClick}"/>
-                            <MenuItem Header="Open File Location" Command="{Binding OpenFileLocationClick}"/>
-                            <MenuItem Header="Scan File Directory" Command="{Binding ScanFileDirectoryClick}"/>
+                            <MenuItem Header="Open File" Command="{Binding PlacementTarget.DataContext.OpenFileClickCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding PlacementTarget.SelectedItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+                            <MenuItem Header="Open File Location" Command="{Binding PlacementTarget.DataContext.OpenFileLocationClickCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding PlacementTarget.SelectedItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+                            <MenuItem Header="Scan File Directory" Command="{Binding PlacementTarget.DataContext.ScanFileDirectoryClickCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding PlacementTarget.SelectedItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                     <DataGrid.Columns>
@@ -331,8 +331,8 @@
                     </DataGrid.RowHeaderStyle>
                     <DataGrid.ContextMenu>
                         <ContextMenu>
-                            <MenuItem Header="Open Folder Location" Command="{Binding OpenFolderLocationClick}"/>
-                            <MenuItem Header="Scan Folder Directory" Command="{Binding ScanFolderDirectoryClick}"/>
+                            <MenuItem Header="Open Folder Location" Command="{Binding PlacementTarget.DataContext.OpenFolderLocationClickCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding PlacementTarget.SelectedItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
+                            <MenuItem Header="Scan Folder Directory" Command="{Binding PlacementTarget.DataContext.ScanFolderDirectoryClickCommand, RelativeSource={RelativeSource AncestorType=ContextMenu}}" CommandParameter="{Binding PlacementTarget.SelectedItem, RelativeSource={RelativeSource AncestorType=ContextMenu}}"/>
                         </ContextMenu>
                     </DataGrid.ContextMenu>
                     <DataGrid.Columns>

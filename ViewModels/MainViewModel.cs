@@ -4,6 +4,7 @@ using DataOrganiser.Models;
 using DataOrganiser.Services;
 using System.Collections.Concurrent;
 using System.Collections.ObjectModel;
+using System.Diagnostics;
 using System.IO;
 using System.Text.Json;
 using System.Windows;
@@ -451,25 +452,60 @@ public partial class MainViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void ScanFileDirectoryClick() { }
-
-    [RelayCommand]
     private void SettingsButtonClick()
     {
         _windowService.Show();
     }
 
     [RelayCommand]
-    private void OpenFileLocationClick() { }
+    private void OpenFileLocationClick(IndexedFile file)
+    {
+        if (file == null)
+            return;
+
+        Process.Start(new ProcessStartInfo
+        {
+            FileName = "explorer.exe",
+            Arguments = $"/select,\"{file.FullPath}\"",
+            UseShellExecute = true
+        });
+    }
 
     [RelayCommand]
-    private void OpenFileClick() { }
+    private void OpenFileClick(IndexedFile file)
+    {
+        if (file == null)
+            return;
+
+        Process.Start(new ProcessStartInfo
+        {
+            FileName = file.FullPath,
+            UseShellExecute = true
+        });
+    }
 
     [RelayCommand]
-    private void OpenFolderLocationClick() { }
+    private void OpenFolderLocationClick(IndexedFolder folder)
+    {
+        if (folder == null)
+            return;
+
+        Process.Start(new ProcessStartInfo
+        {
+            FileName = "explorer.exe",
+            Arguments = $"\"{folder.FullPath}\"",
+            UseShellExecute = true
+        });
+    }
 
     [RelayCommand]
-    private void ScanFolderDirectoryClick() { }
+    private void ScanFileDirectoryClick(IndexedFile file)
+    {
+        if (file == null)
+            return;
+
+        return;
+    }
 
     [RelayCommand]
     private void FileDataGridDoubleClick() { }
