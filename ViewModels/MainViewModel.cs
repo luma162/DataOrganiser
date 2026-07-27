@@ -74,14 +74,9 @@ public partial class MainViewModel : ObservableObject
         FilteredExtensionButtons.Filter = FilterExtensionButtons;
     }
 
-    [RelayCommand]
-    private async Task ScanButton()
+    private async Task ScanDirectory(string directory)
     {
-        var dialog = new System.Windows.Forms.FolderBrowserDialog();
-        if (dialog.ShowDialog() != System.Windows.Forms.DialogResult.OK)
-            return;
-
-        _scannedDir = dialog.SelectedPath;
+        _scannedDir = directory;
 
         IndexedFiles.Clear();
         IndexedFolders.Clear();
@@ -98,13 +93,10 @@ public partial class MainViewModel : ObservableObject
         {
             await Task.Run(() =>
             {
-                _indexer.IndexDirectory(_scannedDir, filesBag, foldersBag);
+                _indexer.IndexDirectory(directory, filesBag, foldersBag);
             });
 
-            IndexedFiles.Clear();
             IndexedFiles.AddRange(filesBag);
-
-            IndexedFolders.Clear();
             IndexedFolders.AddRange(foldersBag);
 
             PopulateExtensionButtons();
@@ -124,6 +116,17 @@ public partial class MainViewModel : ObservableObject
         {
             LoadingOverlayVisibility = Visibility.Collapsed;
         }
+    }
+
+    [RelayCommand]
+    private async Task ScanButton()
+    {
+        var dialog = new System.Windows.Forms.FolderBrowserDialog();
+
+        if (dialog.ShowDialog() != System.Windows.Forms.DialogResult.OK)
+            return;
+
+        await ScanDirectory(dialog.SelectedPath);
     }
 
     private void PopulateExtensionButtons()
@@ -318,36 +321,13 @@ public partial class MainViewModel : ObservableObject
     [RelayCommand]
     private async Task RefreshButtonClick()
     {
-        if (_scannedDir is null)
+        if (_scannedDir == null)
         {
             System.Windows.MessageBox.Show("No directory to refresh. Please scan a folder first.");
             return;
         }
 
-        CurrentDirectory = $"Current Directory: {_scannedDir}";
-        CurrentDirectoryVisibility = Visibility.Visible;
-        LoadingOverlayVisibility = Visibility.Visible;
-
-        var filesBag = new ConcurrentBag<IndexedFile>();
-        var foldersBag = new ConcurrentBag<IndexedFolder>();
-
-        try
-        {
-            await Task.Run(() => _indexer.IndexDirectory(_scannedDir, filesBag, foldersBag));
-
-            IndexedFiles.Clear();
-            IndexedFiles.AddRange(filesBag);
-
-            IndexedFolders.Clear();
-            IndexedFolders.AddRange(foldersBag);
-
-            PopulateExtensionButtons();
-            PopulateExtensionGroups();
-        }
-        finally
-        {
-            LoadingOverlayVisibility = Visibility.Collapsed;
-        }
+        await ScanDirectory(_scannedDir);
     }
 
     [RelayCommand]
@@ -499,12 +479,26 @@ public partial class MainViewModel : ObservableObject
     }
 
     [RelayCommand]
-    private void ScanFileDirectoryClick(IndexedFile file)
+    private async Task ScanFileDirectoryClick(IndexedFile file)
     {
         if (file == null)
             return;
 
-        return;
+        string? directory = Path.GetDirectoryName(file.FullPath);
+
+        if (directory == null)
+            return;
+
+        await ScanDirectory(directory);
+    }
+
+    [RelayCommand]
+    private async Task ScanFolderDirectoryClick(IndexedFolder folder)
+    {
+        if (folder == null)
+            return;
+
+        await ScanDirectory(folder.FullPath);
     }
 
     [RelayCommand]
