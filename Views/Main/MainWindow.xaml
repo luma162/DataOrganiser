@@ -67,19 +67,7 @@
         </Grid>
 
         <StackPanel Orientation="Horizontal" Grid.Row="0" Margin="0,95,0,0" VerticalAlignment="Top">
-            <!--
-            <TextBlock x:Name="SearchTextBlock"
-                       Text="Search by Extension:"
-                       FontSize="14"
-                       Height="25"
-                       Width="133"
-                       Visibility="Hidden"
-                       VerticalAlignment="Center"
-                       HorizontalAlignment="Center"
-                       Foreground="White"
-                       Margin="0,3,0,0"
-            />
-            -->
+
             <TextBox x:Name="ExtensionSearchTextBox"
                      Text="{Binding ExtensionSearchText, UpdateSourceTrigger=PropertyChanged}"
                      Width="200"
@@ -92,10 +80,7 @@
                      Style="{StaticResource RoundedTextBoxWithPlaceholder}"
                      Tag="Search by Extension:"
             />
-            <!--
-            Background="#191f2e"
-            BorderBrush="#3B3B50"
-            -->
+
             <Button Content="Clear" 
                     x:Name="ClearButton" 
                     Height="30" Width="100"
@@ -211,19 +196,6 @@
             ToolTip="Show only files created within the last 2 weeks."
             IsChecked="{Binding RecentDumpButtonSelected}"
         />
-
-        <!--
-        <TextBlock x:Name="FileSearchTextBlock"
-                 Text="Search for file / folder:"
-                 FontSize="14"
-                 Height="25"
-                 Width="144"                 
-                 VerticalAlignment="Bottom"
-                 HorizontalAlignment="Left"
-                 Foreground="White" Margin="2,0,0,13" Grid.Row="1"
-                 Visibility="Hidden"
-        />
-        -->
 
         <TextBox x:Name="FileSearchTextBox"
                  Width="200"

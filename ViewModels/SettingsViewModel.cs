@@ -116,5 +116,25 @@ namespace DataOrganiser.ViewModels
 
             ExcludedFolders.Remove(folder);
         }
+
+        [RelayCommand]
+        private void AddGroupClick()
+        {
+            System.Windows.MessageBox.Show("add group pressed");
+        }
+
+        [RelayCommand]
+        private void DeleteGroupClick(ExtensionGroupModel group)
+        {
+            _extensionGroupService.DeleteGroup(group);
+
+            ExtensionGroups.Remove(group);
+        }
+
+        [RelayCommand]
+        private void EditGroupClick()
+        {
+            System.Windows.MessageBox.Show("edit button pressed");
+        }
     }
 }

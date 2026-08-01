@@ -56,5 +56,11 @@ namespace DataOrganiser.Services
                 Console.WriteLine($"Error loading extension groups: {ex.Message}");
             }
         }
+
+        public void DeleteGroup(ExtensionGroupModel group)
+        {
+            _groups.Remove(group);
+            Save();
+        }
     }
 }
