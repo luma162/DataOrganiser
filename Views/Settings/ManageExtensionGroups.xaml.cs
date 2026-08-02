@@ -12,14 +12,14 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace DataOrganiser
+namespace DataOrganiser.Views.Settings
 {
     /// <summary>
-    /// Interaction logic for EditExtensionGroups.xaml
+    /// Interaction logic for ManageExtensionGroups.xaml
     /// </summary>
-    public partial class EditExtensionGroups : Window
+    public partial class ManageExtensionGroups : Window
     {
-        public EditExtensionGroups()
+        public ManageExtensionGroups()
         {
             InitializeComponent();
         }

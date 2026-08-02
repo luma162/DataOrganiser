@@ -62,5 +62,11 @@ namespace DataOrganiser.Services
             _groups.Remove(group);
             Save();
         }
+
+        public void AddGroup(ExtensionGroupModel group)
+        {
+            _groups.Add(group);
+            Save();
+        }
     }
 }

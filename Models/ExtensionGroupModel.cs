@@ -1,7 +1,8 @@
+using CommunityToolkit.Mvvm.ComponentModel;
 using DataOrganiser.Services;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
-using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace DataOrganiser.Models
 {
@@ -11,11 +12,19 @@ namespace DataOrganiser.Models
         private string name = string.Empty;
 
         [ObservableProperty]
-        private List<string> extensions = new();
+        private ObservableCollection<string> extensions = new();
 
         [ObservableProperty]
         private bool isEnabled;
 
-        public string ExtensionsDisplay => string.Join(", ", extensions);
+        public string ExtensionsDisplay => string.Join(", ", Extensions);
+
+        public ExtensionGroupModel()
+        {
+            Extensions.CollectionChanged += (_, _) =>
+            {
+                OnPropertyChanged(nameof(ExtensionsDisplay));
+            };
+        }
     }
 }

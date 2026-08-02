@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Collections.ObjectModel;
 using System.Windows.Controls;
 using DataOrganiser.Models;
+using DataOrganiser.Views.Settings;
 
 namespace DataOrganiser.ViewModels
 {
@@ -27,6 +28,16 @@ namespace DataOrganiser.ViewModels
 
         [ObservableProperty] private object? currentPage;
         [ObservableProperty] private string? recentDumpSelection;
+        [ObservableProperty] private bool isEditingGroup;
+        [ObservableProperty] private ExtensionGroupModel? editingGroup;
+
+        [ObservableProperty] private string extensionInput = string.Empty;
+
+        public string ManageGroupTitle => IsEditingGroup ? "Edit Extension Group" : "Add Extension Group";
+
+        public string ManageGroupButtonText => IsEditingGroup ? "Save Changes" : "Add Group";
+        
+        private ExtensionGroupModel? originalEditingGroup;
 
         public List<string> RecentDumpOptions { get; } =
         [
@@ -120,7 +131,19 @@ namespace DataOrganiser.ViewModels
         [RelayCommand]
         private void AddGroupClick()
         {
-            System.Windows.MessageBox.Show("add group pressed");
+            IsEditingGroup = false;
+
+            EditingGroup = new ExtensionGroupModel
+            {
+                Name = "",
+                Extensions = new ObservableCollection<string>(),
+                IsEnabled = true
+            };
+
+            var manageExtensionGroupsWindow = new ManageExtensionGroups();
+            manageExtensionGroupsWindow.DataContext = this;
+            manageExtensionGroupsWindow.Owner = System.Windows.Application.Current.MainWindow;
+            manageExtensionGroupsWindow.Show();
         }
 
         [RelayCommand]
@@ -132,9 +155,66 @@ namespace DataOrganiser.ViewModels
         }
 
         [RelayCommand]
-        private void EditGroupClick()
+        private void EditGroupClick(ExtensionGroupModel group)
         {
-            System.Windows.MessageBox.Show("edit button pressed");
+            IsEditingGroup = true;
+
+            EditingGroup = new ExtensionGroupModel
+            {
+                Name = group.Name,
+                Extensions = new ObservableCollection<string>(group.Extensions),
+                IsEnabled = group.IsEnabled
+            };
+
+            var manageExtensionGroupsWindow = new ManageExtensionGroups();
+            manageExtensionGroupsWindow.DataContext = this;
+            manageExtensionGroupsWindow.Owner = System.Windows.Application.Current.MainWindow;
+            manageExtensionGroupsWindow.Show();
+        }
+
+        partial void OnIsEditingGroupChanged(bool value)
+        {
+            OnPropertyChanged(nameof(ManageGroupTitle));
+            OnPropertyChanged(nameof(ManageGroupButtonText));
+        }
+
+        [RelayCommand]
+        private void AddExtension()
+        {
+            if (EditingGroup == null)
+                return;
+
+            if (string.IsNullOrWhiteSpace(ExtensionInput))
+                return;
+
+            string extension = ExtensionInput.Trim();
+
+            if (!extension.StartsWith("."))
+                extension = "." + extension;
+
+            if (!EditingGroup.Extensions.Contains(extension))
+            {
+                EditingGroup.Extensions.Add(extension);
+            }
+
+            ExtensionInput = string.Empty;
+        }
+
+        [RelayCommand]
+        private void SaveGroup()
+        {
+            if (EditingGroup == null || string.IsNullOrWhiteSpace(EditingGroup.Name))
+                return;
+
+            if (IsEditingGroup)
+            {
+                _extensionGroupService.Save();
+            }
+            else
+            {
+                ExtensionGroups.Add(EditingGroup);
+                _extensionGroupService.AddGroup(EditingGroup);
+            }
         }
     }
 }
