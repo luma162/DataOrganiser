@@ -15,7 +15,7 @@
     <RuntimeIdentifier>win-x64</RuntimeIdentifier>
     <PublishTrimmed>false</PublishTrimmed>
     <ApplicationManifest>app.manifest</ApplicationManifest>
-    <ApplicationIcon>icon.ico</ApplicationIcon> <!-- Optional: WPF apps often break if trimmed -->
+    <ApplicationIcon>icon.ico</ApplicationIcon>
 
   </PropertyGroup>
 
