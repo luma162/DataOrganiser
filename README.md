@@ -24,7 +24,7 @@ cd DataOrganiser
 dotnet publish -c Release
 ```
 
-The finished executable will be in `bin\Release\net9.0-windows\win-x64\publish\winx-64\DataOrganiser.exe`.
+The finished executable will be in `bin\Release\net9.0-windows\publish\win-x64\DataOrganiser.exe`.
 
 ### Prebuilt release
 
