@@ -54,6 +54,9 @@ public partial class MainViewModel : ObservableObject
 
     private string? _scannedDir;
     private ExtensionButtonModel? _allButton;
+    private HashSet<string> _selectedExtensionsCache = new();
+    private bool _showAllExtensions = true;
+    private DateTime _recentDumpCutoffCache;
 
     private const string AllExtensionKey = "__ALL__"; 
 
@@ -101,6 +104,7 @@ public partial class MainViewModel : ObservableObject
 
             PopulateExtensionButtons();
             PopulateExtensionGroups();
+            UpdateFilterCache();
 
             SearchBarVisibility = Visibility.Visible;
             ExtensionSearchVisibility = Visibility.Visible;
@@ -169,8 +173,27 @@ public partial class MainViewModel : ObservableObject
 
     private void UpdateDataGrid()
     {
+        UpdateFilterCache();
         FilteredFiles.Refresh();
         FilteredFolders.Refresh();
+    }
+
+    private void UpdateFilterCache()
+    {
+        _showAllExtensions = _allButton is null || _allButton.IsSelected;
+
+        _selectedExtensionsCache.Clear();
+
+        if (!_showAllExtensions)
+        {
+            foreach (var button in ExtensionButtons)
+            {
+                if (button.IsSelected && button.Extension != AllExtensionKey)
+                    _selectedExtensionsCache.Add(button.Extension!);
+            }
+        }
+
+        _recentDumpCutoffCache = _generalSettingsService.GetRecentDump();
     }
 
     private bool FilterExtensionButtons(object obj)
@@ -190,40 +213,7 @@ public partial class MainViewModel : ObservableObject
             return false;
 
 
-        bool matchesExtension;
-
-        if (_allButton == null)
-        {
-            matchesExtension = true;
-        }
-        else if (_allButton.IsSelected)
-        {
-            matchesExtension = true;
-        }
-        else
-        {
-            bool foundMatchingSelectedExtension = false;
-
-            foreach (var extensionButton in ExtensionButtons)
-            {
-                bool buttonIsSelected = extensionButton.IsSelected;
-
-                string? fileExtensionLower = null;
-                if (file.Extension != null)
-                {
-                    fileExtensionLower = file.Extension.ToLower();
-                }
-
-                bool extensionsMatch = (extensionButton.Extension == fileExtensionLower);
-
-                if (buttonIsSelected && extensionsMatch)
-                {
-                    foundMatchingSelectedExtension = true;
-                    break;
-                }
-            }
-            matchesExtension = foundMatchingSelectedExtension;
-        }
+        bool matchesExtension = _showAllExtensions || (file.Extension != null && _selectedExtensionsCache.Contains(file.Extension.ToLower()));
 
 
         bool matchesSearch;
@@ -250,12 +240,10 @@ public partial class MainViewModel : ObservableObject
         }
 
         bool recentDump;
-        //var time = DateTime.Now.AddDays(-14);
-        var time = _generalSettingsService.GetRecentDump();
 
         if (RecentDumpButtonSelected)
         {
-            recentDump = file.Created >= time;
+            recentDump = file.Created >= _recentDumpCutoffCache;
         }
         else
         {
@@ -274,11 +262,10 @@ public partial class MainViewModel : ObservableObject
             || (folder.Name?.Contains(FileSearchText, StringComparison.OrdinalIgnoreCase) ?? false);
 
         bool recentDump;
-        var time = _generalSettingsService.GetRecentDump();
 
         if (RecentDumpButtonSelected)
         {
-            recentDump = folder.Created >= time;
+            recentDump = folder.Created >= _recentDumpCutoffCache;
         }
         else
         {
