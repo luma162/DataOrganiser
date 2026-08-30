@@ -12,24 +12,23 @@ Examples:
 
 It also has basic file management built in with features to move, copy, delete, open, or open to the file's location in Explorer.
 
-## Dependencies
-
-- Windows 10/11
-- [.NET 9 Desktop Runtime](https://dotnet.microsoft.com/download/dotnet/9.0)
-- [CommunityToolkit.Mvvm](https://www.nuget.org/packages/CommunityToolkit.Mvvm) — MVVM infrastructure, restored automatically via NuGet on build
-
 ## Getting Started
 
-1. Grab the latest release from the [Releases page](https://github.com/luma162/DataOrganiser/releases).
-2. Run the `.exe`.
-3. If the .NET 9 Desktop Runtime isn't already installed, Windows will prompt you to install it and take you to the correct Microsoft download page.
+### Build from source (recommended)
 
-If you'd rather install the runtime yourself ahead of time:
+Requirements: [.NET 9 SDK](https://dotnet.microsoft.com/download/dotnet/9.0)
 
-```powershell
-# Install the .NET 9 Desktop Runtime via winget
-winget install Microsoft.DotNet.DesktopRuntime.9
+```bash
+git clone https://github.com/luma162/DataOrganiser
+cd DataOrganiser
+dotnet publish -c Release
 ```
+
+The finished executable will be in `bin\Release\net9.0-windows\win-x64\publish\winx-64\DataOrganiser.exe`.
+
+### Prebuilt release
+
+Alternatively, grab the `.exe` from the [Releases page](https://github.com/luma162/DataOrganiser/releases) - it is unsigned and may cause a SmartScreen warning.
 
 ## Screenshots
 
